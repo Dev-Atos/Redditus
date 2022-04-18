@@ -1,0 +1,36 @@
+{% extends "bootstrap/base.html" %}
+
+{% block content %}
+<div class="col-md-4 col-md-offset-4">
+    <form action="" method="POST" class="form">
+
+        <div class="form-group">
+            <input type="email" class='form-control' id="username" name="username" placeholder="Usuário" required="required">
+        </div>
+
+        <div class="form-group">
+            <input type="password" class="form-control" name="pw" id="pw" placeholder='Senha' required="required">
+        </div>
+
+        <div><!--Mostrar a mensagem FLASH-->
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+    
+        </div>
+
+        <button type="submit" class="btn btn-dark col-md-12">Entrar</button>
+
+        <a href="/registrar">Cadastrar</a>
+
+    </form>
+
+</div>
+
+{% endblock %}

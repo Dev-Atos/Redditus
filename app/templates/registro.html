@@ -1,0 +1,24 @@
+{% extends "bootstrap/base.html" %}
+{% block content %}
+<div class="col-md-4 col-md-offset-4">
+    <form action="" method="POST" class="form">
+
+        <div class="form-group">
+            <input type="text" class='form-control' id="rPw" name="rUsername" placeholder="Nome">
+        </div>
+
+        <div class="form-group">
+            <input type="email" class="form-control" name="rEmail" id="rEmail" name="" placeholder='Email'>
+        </div>
+
+        <div class="form-group">
+            <input type="password" class="form-control" name="rPw" id="rPw" name="" placeholder='Senha'>
+        </div>
+
+        <button type="submit" class="btn btn-dark">Cadastrar</button>
+
+    </form>
+
+</div>
+
+{% endblock %}
