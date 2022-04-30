@@ -1,5 +1,9 @@
 from app import db, lm
 
+"""class Administrador(db.Model):
+    __tablename__ = 'admin'
+    id_adm"""
+
 
 class Users(db.Model):
     __tablename__ = "users"

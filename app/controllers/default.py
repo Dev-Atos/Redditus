@@ -4,6 +4,7 @@ from flask import flash, redirect, render_template, request, url_for
 from flask_login import login_user, logout_user,current_user
 from app. __init__ import db
 
+
 #NECESSÁRIO PARA NÃO DAR ERRO, VERIFICA O USUÁRIO SE NÃO TIVER NENHUM ELE CONTINUA MESMO SEM USUÁRIO
 @lm.user_loader
 def load_user(id):
@@ -15,9 +16,10 @@ def load_user(id):
         print (e)
         return None
 
+
 @app.route('/')
 def index():
-    return render_template('index.html', user=current_user)
+    return render_template('/index.html')#, user=current_user
 
 @app.route('/login', methods=['GET','POST'])
 def login():

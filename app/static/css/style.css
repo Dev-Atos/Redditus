@@ -1,0 +1,116 @@
+* {
+    font-family: 'Roboto', sans-serif;;
+}
+
+body {
+    background-color: #e5e5e5;
+}
+
+.topo {
+    background-color: white;
+    height: 70px;
+}
+
+.redditus-logo {
+    width: 180px;
+}
+
+.login-button {
+    text-decoration: none;
+    color: #000000;
+    font-weight: 400;
+    font-size: 26px;
+    margin-top: 5px;
+    margin-right: 2%;
+}
+
+.menuNav {
+    margin-left: 75px;
+    margin-right: 75px;
+    margin-bottom: 0px;
+    padding: 0;
+    border-bottom: solid 4px transparent;
+    color: black;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    color: #4f4f4f;
+    border-bottom: solid 4px #4f4f4f;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar-toggler {
+    color: rgba(0,0,0,.55);
+    border-color: rgba(0,0,0,.1);
+}
+
+.carousel {
+    background-color: red;
+}
+
+.card-carousel {
+    background-color: white;
+    width: 100%;
+    background-color: #e5e5e5;
+    height: 500px;
+    margin-top: 30px;
+}
+
+.user-logo {
+    width: 35px;
+}
+
+.botao-esquerda {
+    left: -30px;
+}
+.botao-direita {
+    right: -30px;
+}
+
+.barra-pesquisa {
+    background-color: #e40000;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.barra-pesquisa h3 {
+    color: white;
+    width: 400px;
+}
+
+.barra-pesquisa h5 {
+    color: white;
+    
+}
+
+.form-select {
+    border-radius: 5px 5px 5px 5px;
+    width: 300px;
+}
+
+.select-pesquisa {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+#local-input {
+    width: 300px;
+}
+#data-hora-input {
+    width: 100px;
+}
+
+#botao-buscar input {
+    width: 100%;
+    height: 100%;
+}
+
+.botao {
+    border-radius: 5px;
+}

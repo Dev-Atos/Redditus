@@ -3,6 +3,7 @@ import os.path
 
 baseDir = os.path.abspath(os.path.dirname(__file__))
 
+
 DEBUG=True
 SECRET_KEY = 'SUCODELARANJA'
 
