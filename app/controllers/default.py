@@ -1,15 +1,14 @@
 from app import app, lm
-from app.models.tables import Users
-from flask import flash, redirect, render_template, request, url_for
-from flask_login import login_user, logout_user,current_user
-from app. __init__ import db
+from app.models.tables import Cliente
+from flask import render_template
+from flask_login import current_user
 
 
 #NECESSÁRIO PARA NÃO DAR ERRO, VERIFICA O USUÁRIO SE NÃO TIVER NENHUM ELE CONTINUA MESMO SEM USUÁRIO
 @lm.user_loader
 def load_user(id):
     try:
-        user = Users.query.get(int(id))
+        user = Cliente.query.get(int(id))
         #print(f'AQUIIIIIIIIIIIIIIIIIIIIIIIII: {user.username}')
         return user
     except Exception as e:
@@ -19,37 +18,40 @@ def load_user(id):
 
 @app.route('/')
 def index():
-    return render_template('/index.html')#, user=current_user
+    return render_template('/index.html', user=current_user)#, user=current_user
 
-@app.route('/login', methods=['GET','POST'])
-def login():
-    if request.method == 'POST': 
-        user = Users.query.filter_by(email=request.form["username"]).first()
-        #print(user.email, user.password, user.id, user)
-        if user.email == request.form['username'] and user.password == request.form['pw']:
-            login_user(user)
-            #print(f'Usuário logado: {current_user.username}')
-            return redirect(url_for('index'))
-        else:
-            flash('Login inválido')
-        print(user)
-    return render_template('/login.html')
 
-@app.route('/logout')
-def logout():
-    logout_user()
-    return redirect(url_for('index'))
+@app.route('/admin')
+def admin():
+    return render_template('admin.html')
 
-@app.route('/registrar', methods=['GET', 'POST'])
-def registra():
+
+#CRUD
+"""
+@app.route('/add',methods=['GET', 'POST'])
+def add():
     if request.method == 'POST':
-        rUser = request.form['rUsername']
-        rPw = request.form['rPw']
-        rEmail = request.form['rEmail']
-        #query_registra = (f"INSERT INTO USERS VALUES(username={rUser}, email={rEmail}, password={rPw})")
-        usuario = Users(username=rUser, email=rEmail, password=rPw)
-        print(usuario)
-        db.session.add(usuario)
+        estudantes = Estudantes(nome=request.form['nome'], idade=request.form['idade']) #precisa passar os campos senão dá erro
+        db.session.add(estudantes)
+        db.session.commit() #Precisa commitar
+        return redirect(url_for('index'))
+    return render_template('add.html')
+
+@app.route('/edit/<id>', methods=['GET','POST'])
+def edit(id):
+    estudantes = Estudantes.query.get(id)
+    if request.method == 'POST':
+        estudantes.nome = request.form['nome']
+        estudantes.idade = request.form['idade']
         db.session.commit()
-        return redirect('/login')
-    return render_template('registro.html')
+        return redirect(url_for('index'))    
+    return render_template('edit.html', estudantes=estudantes)
+        
+
+@app.route('/delete/<id>')
+def delete(id):
+    estudante = Estudantes.query.get(id)
+    db.session.delete(estudante)
+    db.session.commit()
+    return redirect(url_for('index'))
+"""

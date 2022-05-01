@@ -1,18 +1,34 @@
-{% extends "bootstrap/base.html" %}
+{% extends "base.html" %}
 {% block content %}
 <div class="col-md-4 col-md-offset-4">
     <form action="" method="POST" class="form">
 
         <div class="form-group">
-            <input type="text" class='form-control' id="rPw" name="rUsername" placeholder="Nome">
+            <input type="text" class='form-control' id="rUsuario" name="rUsuario" placeholder="Nome" required="required">
         </div>
 
         <div class="form-group">
-            <input type="email" class="form-control" name="rEmail" id="rEmail" name="" placeholder='Email'>
+            <input type="text" class='form-control' id="rSobrenome" name="rSobrenome" placeholder="Sobrenome" required="required">
         </div>
 
         <div class="form-group">
-            <input type="password" class="form-control" name="rPw" id="rPw" name="" placeholder='Senha'>
+            <input type="text" class='form-control' id="rcpf_cnpj" name="rcpf_cnpj" placeholder="CPF/CNPJ" required="required">
+        </div>
+
+        <div class="form-group">
+            <input type="text" class='form-control' id="rcnh" name="rcnh" placeholder="CNH">
+        </div>
+
+        <div class="form-group">
+            <input type="date" class='form-control' id="rdt_nasc" name="rdt_nasc" placeholder="Data de Nascimento">
+        </div>
+
+        <div class="form-group">
+            <input type="email" class="form-control" name="rEmail" id="rEmail" name="" placeholder='Email' required="required">
+        </div>
+
+        <div class="form-group">
+            <input type="password" class="form-control" name="rPw" id="rPw" name="" placeholder='Senha' required="required">
         </div>
 
         <button type="submit" class="btn btn-dark">Cadastrar</button>
@@ -21,4 +37,8 @@
 
 </div>
 
+{% endblock %}
+
+<!--PARA REMOVER O FOOTER DESSA PÁGINA DE REGISTRO-->
+{% block footer %}
 {% endblock %}

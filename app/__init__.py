@@ -18,5 +18,9 @@ manager.add_command('db', MigrateCommand)
 lm = LoginManager()
 lm.init_app(app)
 
-from app.models.tables import Users
-from app.controllers import default
+from app.models.tables import Cliente
+from app.models.tables import Unidade
+from app.models.tables import Administrador
+from app.models.tables import Veiculo
+from app.models.tables import Reserva
+from app.controllers import default,perfil
