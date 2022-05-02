@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block link %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login-page.css')}}">
+{% endblock %}
+
+{% block title %}Login{% endblock %}
+
+{% block header %}
+    <nav class="navbar navbar-expand-lg" style="background-color: #e5e5e5;">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-around" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link menuNav" aria-current="page" href="/">Home</a>
+            <a class="nav-link menuNav" href="#">Carros</a>
+            <a class="nav-link menuNav" href="#">Ofertas</a>
+            <a class="nav-link menuNav" href="#">Saiba Mais</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+  </header>
+  {% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center flex-column container login-area">
+    <div class="row titulo mb-4">
+        <h4>Acesse sua conta:</h3>
+    </div>
+
+    <div class="row">
+        <form action="" method="POST" class="form">
+            <div class="row mb-2">
+                <input type="text" class="form-control" id="username" placeholder="CPF">
+            </div>
+            <div class="row mb-4">
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Senha">
+            </div>
+            
+            <div>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <ul class=flashes>
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
+        
+            </div>
+
+            <div class="row mb-4">
+                <button type="submit" class="btn btn-light">Entrar</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="row separator">
+        Ou:
+    </div>
+
+    <div class="row criar-conta">
+        <a class="btn btn-light" href="/registrar">Crie sua Conta</a>
+    </div>
+
+</div>
+{% endblock %}

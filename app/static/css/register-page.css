@@ -1,0 +1,17 @@
+.login-area {
+    width: 40rem;
+}
+#rUsuario {
+    width: 58%;
+}
+#rSobrenome {
+    width: 38%;
+}
+
+#rcpf_cnpj {
+    width: 48%;
+}
+
+#rdt_nasc {
+    width: 48%;
+}
