@@ -6,41 +6,28 @@
 
 {% block title %}Login{% endblock %}
 
+{% block header %}
+    <nav class="navbar navbar-expand-lg" style="background-color: #e5e5e5;">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-around" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link menuNav" aria-current="page" href="/">Home</a>
+            <a class="nav-link menuNav" href="#">Carros</a>
+            <a class="nav-link menuNav" href="#">Ofertas</a>
+            <a class="nav-link menuNav" href="#">Saiba Mais</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+  </header>
+  {% endblock %}
 
 {% block content %}
-
-
-<!-- <div class="col-md-4 col-md-offset-4">
-    <form action="" method="POST" class="form">
-
-        <div class="form-group">
-            <input type="email" class='form-control' id="username" name="username" placeholder="Usuário" required="required">
-        </div>
-
-        <div class="form-group">
-            <input type="password" class="form-control" name="pw" id="pw" placeholder='Senha' required="required">
-        </div>
-
-        <div>
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <ul class=flashes>
-                {% for message in messages %}
-                <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-            {% endwith %}
-    
-        </div>
-
-        <button type="submit" class="btn btn-dark col-md-12">Entrar</button>
-
-        <a href="/registrar">Cadastrar</a>
-
-    </form>
-
-</div> -->
 
 <div class="d-flex justify-content-center flex-column container login-area">
     <div class="row titulo mb-4">
@@ -48,12 +35,25 @@
     </div>
 
     <div class="row">
-        <form action="">
+        <form action="" method="POST" class="form">
             <div class="row mb-2">
                 <input type="text" class="form-control" id="username" placeholder="CPF">
             </div>
             <div class="row mb-4">
                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Senha">
+            </div>
+            
+            <div>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <ul class=flashes>
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
+        
             </div>
 
             <div class="row mb-4">

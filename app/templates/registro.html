@@ -1,6 +1,55 @@
 {% extends "base.html" %}
+{% block link %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login-page.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/register-page.css')}}">
+{% endblock %}
+{% block title %}Registrar{% endblock %}
 {% block content %}
-<div class="col-md-4 col-md-offset-4">
+
+<div class="d-flex justify-content-center flex-column container login-area">
+    <div class="row titulo mb-4">
+        <h4>Crie sua Conta:</h3>
+    </div>
+
+    <div class="row">
+        <form action="" method="POST" class="form">
+
+            <div class="row mb-2 justify-content-between">
+                <input type="text" class='form-control' id="rUsuario" name="rUsuario" placeholder="Nome"
+                    required="required">
+                <input type="text" class='form-control' id="rSobrenome" name="rSobrenome" placeholder="Sobrenome"
+                    required="required">
+            </div>
+
+            <div class="row mb-2 justify-content-between">
+                <input type="text" class='form-control' id="rcpf_cnpj" name="rcpf_cnpj" placeholder="CPF/CNPJ"
+                    required="required">
+                    <input type="date" class='form-control' id="rdt_nasc" name="rdt_nasc" placeholder="Data de Nascimento">
+            </div>
+
+            <div class="row mb-2">
+                <input type="text" class='form-control' id="rcnh" name="rcnh" placeholder="CNH">
+            </div>
+
+            <div class="row mb-2">
+                <input type="email" class="form-control" name="rEmail" id="rEmail" name="" placeholder='Email'
+                    required="required">
+            </div>
+
+            <div class="row mb-4">
+                <input type="password" class="form-control" name="rPw" id="rPw" name="" placeholder='Senha'
+                    required="required">
+            </div>
+
+            <div class="row mb-4">
+                <button type="submit" class="btn btn-light">Cadastrar</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<!-- <div class="col-md-4 col-md-offset-4">
     <form action="" method="POST" class="form">
 
         <div class="form-group">
@@ -35,7 +84,7 @@
 
     </form>
 
-</div>
+</div> -->
 
 {% endblock %}
 
