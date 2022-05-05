@@ -8,16 +8,20 @@ from app.__init__ import db
 @app.route('/login', methods=['GET','POST'])
 def login():
     if request.method == 'POST': 
-        user = Cliente.query.filter_by(email=request.form["username"]).first_or_404()
+        print('meu caraio')
         print('###############################################################################')
-        print(user.email, user.senha, user.id_cliente, user)
-        if user.email == request.form['username'] and user.senha == request.form['senha']:
-            login_user(user)
-            #print(f'Usuário logado: {current_user.username}')
-            return redirect(url_for('index'))
-        else:
-            flash('Login inválido')
-        print(user)
+        #print(user.email, user.senha, user.id_cliente, user)
+        try:
+            user = Cliente.query.filter_by(email=request.form["username"]).first_or_404()
+            if user.email == request.form['username'] and user.senha == request.form['senha']:
+                login_user(user)
+                print(f'Usuário logado: {current_user.username}')
+                return redirect(url_for('index'))
+            else:
+                flash('Login inválido')
+        except:
+            flash('Não cadastrado')
+        #print(user)
     return render_template('/login.html')
 
 
