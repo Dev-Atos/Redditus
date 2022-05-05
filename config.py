@@ -1,11 +1,27 @@
 import os.path
+from urllib.parse import quote_plus
 
 
 baseDir = os.path.abspath(os.path.dirname(__file__))
 
-
 DEBUG=True
-SECRET_KEY = 'SUCODELARANJA'
 
-SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(baseDir,'storage.db') #Configuração do Banco de dados que será utilizado
+
+parametros = (
+    # Driver que será utilizado na conexão
+    'DRIVER={SQL Server};'
+    # IP ou nome do servidor.
+    'SERVER=BRAINIAC\SPDB_BRAINIAC;'
+    # Porta
+    'PORT=1433;'
+    # Banco que será utilizado.
+    'DATABASE=DB_BRT;'
+    # Nome de usuário.
+    'UID=sa;'
+    # Senha/Token.
+    'PWD=sa123')
+
+url_db = quote_plus(parametros)
+
+SQLALCHEMY_DATABASE_URI = 'mssql+pyodbc:///?odbc_connect=%s' % url_db
 SQLALCHEMY_TRACK_MODIFICATIONS = True

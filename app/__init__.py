@@ -2,12 +2,13 @@ from flask import Flask
 from flask_login import LoginManager
 from flask_script import Manager #Migração banco de dados
 from flask_migrate import Migrate, MigrateCommand #migração Banco de dados
-from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+
 app.config.from_object('config')
-Bootstrap(app)
+
+app.secret_key='SUCODELARANJA'
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
