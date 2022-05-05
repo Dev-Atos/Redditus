@@ -4,44 +4,44 @@
 
 {% block header %}
 
-  <header class="cabecalho">
-    <div class="d-flex justify-content-between align-items-center topo">
-      <image src="{{ url_for('static', filename='img/Redditus.png')}}" alt="Redditus Logo" class="redditus-logo">
+<header class="cabecalho">
+  <div class="d-flex justify-content-between align-items-center topo">
+    <image src="{{ url_for('static', filename='img/Redditus.png')}}" alt="Redditus Logo" class="redditus-logo">
       <a href="/login" class="login-button">
         <img src="{{ url_for('static', filename='img/user.png')}}" alt="user-logo" class="user-logo">
         Login
       </a>
-    </div>
+  </div>
 
-    <nav class="navbar navbar-expand-lg" style="background-color: #e5e5e5;">
-      <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-around" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <a class="nav-link menuNav" aria-current="page" href="#">Home</a>
-            <a class="nav-link menuNav" href="#">Carros</a>
-            <a class="nav-link menuNav" href="#">Unidades</a>
-            <a class="nav-link menuNav" href="#">Saiba Mais</a>
-          </div>
+  <nav class="navbar navbar-expand-lg" style="background-color: #e5e5e5;">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-around" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link menuNav" aria-current="page" href="#">Home</a>
+          <a class="nav-link menuNav" href="#">Carros</a>
+          <a class="nav-link menuNav" href="#">Unidades</a>
+          <a class="nav-link menuNav" href="#">Saiba Mais</a>
         </div>
       </div>
-    </nav>
+    </div>
+  </nav>
 
-  </header>
-  {% endblock %}
+</header>
+{% endblock %}
 
-  <!-- Pesquisa -->
+<!-- Pesquisa -->
 {% block content %}
 
-  <div class="container col-12">
-    <div class="barra-pesquisa">
-      <h3>Procure seu veículo:</h2>
+<div class="container col-12">
+  <div class="barra-pesquisa">
+    <h3>Procure seu veículo:</h2>
       <form action="">
 
-        
+
         <div class="row justify-content-start select-pesquisa">
           <div class="col-3 align-items-center">
             <h5>Informações da retirada:</h5>
@@ -89,175 +89,177 @@
           <div class="col-2" id="botao-buscar">
             <input class="btn-light botao" type="submit" value="Buscar Veículo">
           </div>
-          
+
 
         </div>
-        
+
       </form>
 
+  </div>
+</div>
+
+<!-- Carousel Principal -->
+
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+      aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+      aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+      aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{{ url_for('static', filename='img/carousel1.png')}}" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="{{ url_for('static', filename='img/carousel2.png')}}" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="{{ url_for('static', filename='img/carousel3.png')}}" class="d-block w-100" alt="...">
     </div>
   </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
 
-  <!-- Carousel Principal -->
+<!-- Cards -->
 
-  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-        aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-        aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-        aria-label="Slide 3"></button>
-    </div>
+<h1 class="mt-5 mb-0 text-center">Nossas Unidades</h1>
+<section class="cards-carousel d-flex align-items-center">
+
+  <div id="carouselExampleControls" class="carousel slide card-carousel carousel-dark" data-bs-ride="carousel">
+
     <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="{{ url_for('static', filename='img/carousel1.png')}}" class="d-block w-100" alt="...">
+
+      <div class="carousel-item active justify-content-evenly">
+
+        <div class="carros row justify-content-evenly">
+
+          <div class="card col-6">
+            <div class="row align-items-center">
+              <div class="col-4">
+                <img src="{{ url_for('static', filename='img/unidades/unidade1.jpg')}}" class="card-img-top" alt="...">
+              </div>
+
+              <div class="card-body col-8">
+                <h2 class="card-title">Unidade 1</h5>
+                  <p class="card-text">Onde Judas perdeu as Botas, 1573 - Bairro Qualquer - São Paulo | CEP: 09806-293
+                  </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card col-6">
+            <div class="row align-items-center">
+              <div class="col-4">
+                <img src="{{ url_for('static', filename='img/unidades/unidade2.jpg')}}" class="card-img-top" alt="...">
+              </div>
+
+              <div class="card-body col-8">
+                <h2 class="card-title">Unidade 2</h5>
+                  <p class="card-text">Onde Judas perdeu as Botas, 1573 - Bairro Qualquer - São Paulo | CEP: 09806-293
+                  </p>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
       </div>
-      <div class="carousel-item">
-        <img src="{{ url_for('static', filename='img/carousel2.png')}}" class="d-block w-100" alt="...">
+
+      <div class="carousel-item justify-content-evenly">
+
+        <div class="carros row justify-content-evenly">
+
+          <div class="card col-6">
+            <div class="row align-items-center">
+              <div class="col-4">
+                <img src="{{ url_for('static', filename='img/unidades/unidade3.jpg')}}" class="card-img-top" alt="...">
+              </div>
+
+              <div class="card-body col-8">
+                <h2 class="card-title">Unidade 3</h5>
+                  <p class="card-text">Onde Judas perdeu as Botas, 1573 - Bairro Qualquer - São Paulo | CEP: 09806-293
+                  </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card col-6">
+            <div class="row align-items-center">
+              <div class="col-4">
+                <img src="{{ url_for('static', filename='img/unidades/unidade4.jpg')}}" class="card-img-top" alt="...">
+              </div>
+
+              <div class="card-body col-8">
+                <h2 class="card-title">Unidade 4</h5>
+                  <p class="card-text">Onde Judas perdeu as Botas, 1573 - Bairro Qualquer - São Paulo | CEP: 09806-293
+                  </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
       </div>
-      <div class="carousel-item">
-        <img src="{{ url_for('static', filename='img/carousel3.png')}}" class="d-block w-100" alt="...">
+
+
+      <div class="carousel-item justify-content-evenly">
+
+        <div class="carros row justify-content-evenly">
+
+          <div class="card col-6">
+            <div class="row align-items-center">
+              <div class="col-4">
+                <img src="{{ url_for('static', filename='img/unidades/unidade5.jpg')}}" class="card-img-top" alt="...">
+              </div>
+
+              <div class="card-body col-8">
+                <h2 class="card-title">Unidade 5</h5>
+                  <p class="card-text">Onde Judas perdeu as Botas, 1573 - Bairro Qualquer - São Paulo | CEP: 09806-293
+                  </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card col-6">
+            <div class="row align-items-center">
+              <div class="col-4">
+                <img src="{{ url_for('static', filename='img/unidades/unidade6.jpg')}}" class="card-img-top" alt="...">
+              </div>
+
+              <div class="card-body col-8">
+                <h2 class="card-title">Unidade 6</h5>
+                  <p class="card-text">Onde Judas perdeu as Botas, 1573 - Bairro Qualquer - São Paulo | CEP: 09806-293
+                  </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+
+    <button class="carousel-control-prev botao-esquerda" type="button" data-bs-target="#carouselExampleControls"
       data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+    <button class="carousel-control-next botao-direita" type="button" data-bs-target="#carouselExampleControls"
       data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
   </div>
 
-  <!-- Cards -->
+</section>
 
-  <section class="cards-carousel d-flex align-items-center">
-
-    <div id="carouselExampleControls" class="carousel slide card-carousel carousel-dark" data-bs-ride="carousel">
-
-      <div class="carousel-inner">
-
-        <div class="carousel-item active justify-content-evenly">
-
-          <div class="carros row justify-content-evenly">
-
-            <div class="card col-3" style="width: 18rem;">
-              <img src="{{ url_for('static', filename='img/fiatuno.png')}}" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                  card's content.</p>
-              </div>
-            </div>
-
-            <div class="card col-3" style="width: 18rem;">
-              <img src="{{ url_for('static', filename='img/fiatuno.png')}}" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                  card's content.</p>
-              </div>
-            </div>
-
-            <div class="card col-3" style="width: 18rem;">
-              <img src="{{ url_for('static', filename='img/fiatuno.png')}}" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                  card's content.</p>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="carousel-item justify-content-evenly">
-
-          <div class="carros row justify-content-evenly">
-
-            <div class="card col-3" style="width: 18rem;">
-              <img src="{{ url_for('static', filename='img/fiatuno.png')}}" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                  card's content.</p>
-              </div>
-            </div>
-
-            <div class="card col-3" style="width: 18rem;">
-              <img src="{{ url_for('static', filename='img/fiatuno.png')}}" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                  card's content.</p>
-              </div>
-            </div>
-
-            <div class="card col-3" style="width: 18rem;">
-              <img src="{{ url_for('static', filename='img/fiatuno.png')}}" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                  card's content.</p>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="carousel-item justify-content-evenly">
-
-          <div class="carros row justify-content-evenly">
-
-            <div class="card col-3" style="width: 18rem;">
-              <img src="{{ url_for('static', filename='img/fiatuno.png')}}" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                  card's content.</p>
-              </div>
-            </div>
-
-            <div class="card col-3" style="width: 18rem;">
-              <img src="{{ url_for('static', filename='img/fiatuno.png')}}" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                  card's content.</p>                
-              </div>
-            </div>
-
-            <div class="card col-3" style="width: 18rem;">
-              <img src="{{ url_for('static', filename='img/fiatuno.png')}}" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                  card's content.</p>                
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </div>
-
-      <button class="carousel-control-prev botao-esquerda" type="button" data-bs-target="#carouselExampleControls"
-        data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next botao-direita" type="button" data-bs-target="#carouselExampleControls"
-        data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-
-  </section>
-
-  {% endblock %}
+{% endblock %}
