@@ -4,6 +4,7 @@
 dados_conexao = (
     'Driver={SQL Server};'
     'Server=BRAINIAC\SPDB_BRAINIAC;'
+    # 'Server=DESKTOP-V5GT183\SQLEXPRESS;'
     'Database=DB_BRT;'
 )
 

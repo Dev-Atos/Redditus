@@ -4,7 +4,11 @@
 
 body {
     background-color: #e5e5e5;
+<<<<<<< HEAD
     overflow-x: hidden; 
+=======
+    overflow-x: hidden;
+>>>>>>> dcb96abf4b6984be21088ca2401f0e768281f24c
 }
 
 .topo {
@@ -53,24 +57,12 @@ body {
     background-color: red;
 }
 
-.card-carousel {
-    background-color: white;
-    width: 100%;
-    background-color: #e5e5e5;
-    height: 500px;
-    margin-top: 30px;
-}
+
 
 .user-logo {
     width: 35px;
 }
 
-.botao-esquerda {
-    left: -30px;
-}
-.botao-direita {
-    right: -30px;
-}
 
 .barra-pesquisa {
     background-color: #e40000;
@@ -141,7 +133,7 @@ body {
     transition: 0.1s;
 }
 
-.rodape a:hover, p:hover {
+.rodape a:hover,.rodape p:hover {
     font-weight: 600;
 }
 
@@ -152,4 +144,38 @@ body {
 .icon {
     width: 30px;
     height: 30px;
+}
+
+
+
+/* Carousel de cards */
+
+.card-img-top {
+    width: 180px;
+    border-radius: 100px;
+}
+
+.card-carousel {
+    background-color: white;
+    width: 100%;
+    background-color: #e5e5e5;
+    height: fit-content;
+    margin-top: 30px;
+}
+.card {
+    background-color: white;
+    width: 36rem;
+    padding: 12px;
+}
+
+.botao-esquerda, .botao-direita {
+    width: 3rem;
+}
+.card-title {
+    width: fit-content;
+    line-height: 100%;
+    vertical-align: middle;
+}
+.card-text {
+    text-align: start;
 }
