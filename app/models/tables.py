@@ -13,7 +13,7 @@ class Administrador(db.Model):
         self.senha = senha
 
 class Unidade(db.Model):
-    __tablename__ = 'Unidades'
+    __tablename__ = 'UNIDADE'
 
     id_unidade = db.Column('id_unidade',db.Integer, primary_key=True)
     cep = db.Column('cep',db.String(8))
@@ -24,7 +24,7 @@ class Unidade(db.Model):
         self.numero_endereco = numero_endereco
 
 class Veiculo(db.Model):
-    __tablename__ = 'Veiculos'
+    __tablename__ = 'VEICULO'
 
     id_veiculo = db.Column('id_veiculo',db.Integer, primary_key=True)
     id_unidade = db.Column('id_unidade',db.Integer, db.ForeignKey('Unidade.id_unidade'))
@@ -41,7 +41,7 @@ class Veiculo(db.Model):
    
 
 class Cliente(db.Model):
-    __tablename__ = "Clientes"
+    __tablename__ = "CLIENTE"
 
     id_cliente = db.Column('id_cliente', db.Integer, primary_key=True, autoincrement=True)
     nome_cliente = db.Column('nome_cliente',db.String(255))
@@ -65,11 +65,11 @@ class Cliente(db.Model):
 
     @property
     def get_id(self):
-        return str(self.id)
+        return str(self.id_cliente)
     
     @lm.user_loader
     def load_user(self):
-     return Cliente.get(self.id)
+     return Cliente.get(self.id_cliente)
 
 
     def __self__(self,  nome_cliente, email, senha): #Para ser possível a instanciação de classe

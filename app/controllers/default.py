@@ -6,18 +6,18 @@ from flask_login import current_user
 
 #NECESSÁRIO PARA NÃO DAR ERRO, VERIFICA O USUÁRIO SE NÃO TIVER NENHUM ELE CONTINUA MESMO SEM USUÁRIO
 @lm.user_loader
-def load_user(id):
+def load_user(id_cliente):
     try:
-        user = Cliente.query.get(int(id))
-        #print(f'AQUIIIIIIIIIIIIIIIIIIIIIIIII: {user.username}')
+        user = Cliente.query.get(int(id_cliente))
+        print(f'AQUIIIIIIIIIIIIIIIIIIIIIIIII: {user.nome_cliente}')
         return user
     except Exception as e:
         print (e)
         return None
 
-
 @app.route('/')
 def index():
+    #print(current_user)
     return render_template('/index.html', user=current_user)#, user=current_user
 
 
