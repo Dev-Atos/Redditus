@@ -4,12 +4,12 @@ from flask import render_template
 from flask_login import current_user
 
 
-#NECESSÁRIO PARA NÃO DAR ERRO, VERIFICA O USUÁRIO SE NÃO TIVER NENHUM ELE CONTINUA MESMO SEM USUÁRIO
+#NECESSÁRIO PARA NÃO DAR ERRO, VERIFICA SE HÁ USUÁRIO SE NÃO TIVER NENHUM ELE CONTINUA MESMO SEM USUÁRIO
 @lm.user_loader
 def load_user(id_cliente):
     try:
         user = Cliente.query.get(int(id_cliente))
-        print(f'AQUIIIIIIIIIIIIIIIIIIIIIIIII: {user.nome_cliente}')
+        #print(f'AQUIIIIIIIIIIIIIIIIIIIIIIIII: {user.nome_cliente}')
         return user
     except Exception as e:
         print (e)
@@ -17,10 +17,10 @@ def load_user(id_cliente):
 
 @app.route('/')
 def index():
-    #print(current_user)
-    return render_template('/index.html', user=current_user)#, user=current_user
+    usuario = load_user(current_user.get_id)
+    return render_template('/index.html', user=usuario)
 
-
+#DESENVOLVENDO...
 @app.route('/admin')
 def admin():
     return render_template('admin.html')
