@@ -4,11 +4,7 @@
 
 body {
     background-color: #e5e5e5;
-<<<<<<< HEAD
     overflow-x: hidden; 
-=======
-    overflow-x: hidden;
->>>>>>> dcb96abf4b6984be21088ca2401f0e768281f24c
 }
 
 .topo {
@@ -178,4 +174,24 @@ body {
 }
 .card-text {
     text-align: start;
+}
+
+.profile {
+    margin-right: 2%;
+}
+
+.dropdown a{
+    background-color: transparent;
+    border: none;
+    color: black;
+    margin: auto;
+    transition: 0.2s;
+}
+.dropdown a:hover{
+    background-color: transparent;
+    color: black;
+    background-color: #eee;
+}
+.dropdown a:focus {
+    box-shadow: none;
 }
