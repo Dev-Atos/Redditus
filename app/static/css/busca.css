@@ -1,0 +1,72 @@
+.card {
+    width: 100%;
+    padding: 0;
+    border-radius: 25px;
+    transition: 0.2s;
+    height: 400px;
+}
+.card:hover {
+    border-radius: 50px;
+}
+
+.imagem {
+    padding: 12px;
+}
+
+.card img {
+    width: 45%;
+    height: 20%;
+    border-radius: 0px;
+}
+
+.card-body {
+    padding: 0;
+}
+
+.btn {
+    background-color: #f00;
+    display: flex;
+    width: 75%;
+    font-size: 20px;
+    margin: auto;
+    justify-content: center;
+    border-radius: 20px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.btn:hover {
+    background-color: #c00;
+}
+
+.card-title {
+    color: white;
+    width: 120px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    background-color: red;
+    border-radius: 0 25px 25px 0;
+}
+
+.card-text {
+    color: black;
+    font-size: 35px;
+    margin-left: 10px;
+    width: fit-content;
+}
+.car-info {
+    margin-right: 20px;
+    width: 100%;
+    padding: 20px 60px 20px 20px;
+    color: black;
+}
+.car-info h3, .car-info h5 {
+    text-align: end;
+}
+.car-info h3 {
+    font-size: 40px;
+}
+.car-info h5 {
+    font-size: 28px;
+}

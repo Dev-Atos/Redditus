@@ -4,6 +4,20 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/register-page.css')}}">
 {% endblock %}
 {% block title %}Registrar{% endblock %}
+{% block header %}
+<nav class="navbar" style="background-color: transparent;">
+  <div class="container-fluid">
+      <div class="justify-content-start" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+              <a class="nav-link menuNav voltar" aria-current="page" href="/login">Voltar</a>
+          </div>
+      </div>
+  </div>
+</nav>
+
+  </header>
+  {% endblock %}
+
 {% block content %}
 
 <div class="d-flex justify-content-center flex-column container login-area">

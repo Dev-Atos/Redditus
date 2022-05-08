@@ -42,9 +42,8 @@
       <div class="collapse navbar-collapse justify-content-around" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <a class="nav-link menuNav" aria-current="page" href="#">Home</a>
-          <a class="nav-link menuNav" href="#">Carros</a>
-          <a class="nav-link menuNav" href="#">Unidades</a>
-          <a class="nav-link menuNav" href="#">Saiba Mais</a>
+          <a class="nav-link menuNav unidades-link" href="#">Unidades</a>
+          <a class="nav-link menuNav saiba-mais" href="#">Contate-nos</a>
         </div>
       </div>
     </div>
@@ -107,7 +106,8 @@
           </select>
 
           <div class="col-2" id="botao-buscar">
-            <input class="btn-light botao" type="submit" value="Buscar Veículo">
+            <a class="btn-light botao text-center align-items-center" href="/busca" type="submit">Buscar
+              Veículo</a>
           </div>
 
 
@@ -282,4 +282,8 @@
 
 </section>
 
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/index.js')}}"></script>
 {% endblock %}

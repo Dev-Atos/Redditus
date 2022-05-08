@@ -65,3 +65,12 @@ body {
 
 /* Rodapé */
 
+.voltar {
+    color: white;
+    width: fit-content;
+    margin: 0;
+}
+.voltar:hover {
+    color: white;
+    border-bottom: solid 4px #fff;
+}

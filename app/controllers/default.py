@@ -25,7 +25,15 @@ def index():
 def admin():
     return render_template('admin.html')
 
+@app.route('/busca')
+def busca():
+    usuario = load_user(current_user.get_id)
+    return render_template('/busca.html', user=usuario)
 
+@app.route('/pagamento')
+def pagamento():
+    usuario = load_user(current_user.get_id)
+    return render_template('/pagamento.html', user=usuario)
 #CRUD
 """
 @app.route('/add',methods=['GET', 'POST'])

@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block link %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/busca.css')}}">
+{% endblock %}
+
+{% block title %}Home{% endblock %}
+
+{% block header %}
+
+<header class="cabecalho">
+  <div class="d-flex justify-content-between align-items-center topo">
+    <a href="/">
+    <image src="{{ url_for('static', filename='img/Redditus.png')}}" alt="Redditus Logo" class="redditus-logo">
+    </a>
+      {% if user %}
+      <div class="profile">
+        <div class="dropdown">
+          <a class="btn btn-light dropdown-toggle text-center" href="#" role="button" id="dropdownMenuLink"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="{{ url_for('static', filename='img/user.png')}}" alt="user-logo" class="user-logo"> {{ user.nome_cliente }}
+          </a>
+
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><a class="dropdown-item" href="#">Perfil</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="/logout">Sair</a></li>
+          </ul>
+        </div>
+      </div>
+
+        {% else %}
+        <a href="/login" class="login-button">
+          <img src="{{ url_for('static', filename='img/user.png')}}" alt="user-logo" class="user-logo">
+          Login
+        </a>
+        {% endif %}
+  </div>
+
+  <nav class="navbar navbar-expand-lg" style="background-color: #e5e5e5;">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-around" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link menuNav" aria-current="page" href="/">Home</a>
+          <a class="nav-link menuNav saiba-mais" href="#">Contate-nos</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+</header>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+
+<!-- INICIO DO CARD DO VEÍCULO -->
+
+  <div class="row justify-content-evenly mb-3">
+
+    <div class="card col-12">
+
+      <div class="row">
+        <div class="col-8">
+          <div class="imagem">
+            <img src="{{ url_for('static', filename='img/carros/onix.png')}}" class="card-img-top" alt="...">
+          </div>
+          <div class="card-body">
+            <h2 class="card-title">Diária</h2>
+            <p class="card-text">R$ 80</p>
+          </div>
+        </div>
+
+        <div class="col car-info">
+          <h3>Chevrolet</h3>
+          <h5>Onix</h5>
+          <ul>
+            <li>Câmbio Manual</li>
+            <li>Capacidade para 5 Pessoas</li>
+            <li>4 portas</li>
+            <li>Ano 2016</li>
+          </ul>
+        </div>
+
+        <a href="/pagamento" class="btn btn-light botao-reservar">Reserve Agora</a>
+      </div>
+    </div>
+
+  </div>
+
+<!-- FIM DO CARD DO VEÍCULO -->
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/busca.js')}}"></script>
+{% endblock %}

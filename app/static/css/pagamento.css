@@ -1,0 +1,60 @@
+body {
+    background-image: url(../img/car-bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.botoes-pagamento button{
+    width: 28%;
+    background-color: white;
+    border-radius: 25px;
+}
+
+#dataExp, #CVV {
+    width: 48%;
+}
+
+.bloco-pagamento {
+    background-color: rgba(255, 0, 0, 0.6);
+    padding: 20px 60px 20px 60px;
+    transition: 0.2s;
+    border-radius: 10px;
+    width: 50rem;
+}
+
+.bloco-pagamento:hover {
+    background-color: rgba(255, 0, 0, 0.7);
+}
+
+.form-control {
+    border-radius: 10px;
+}
+
+.finalizar {
+    background-color: #FF8F28;
+    border-radius: 25px;
+    border-color: #FF8F28;
+}
+
+.voltar {
+    color: white;
+    width: fit-content;
+    margin: 0;
+}
+.voltar:hover {
+    color: white;
+    border-bottom: solid 4px #fff;
+}
+
+.titulo {
+    color: white;
+}
+
+.metodo-pagamento, .valor-total {
+    color: white;
+    padding: 0;
+}
+
+.valor-total {
+    width: fit-content;
+}

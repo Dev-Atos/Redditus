@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block link %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pagamento.css')}}">
+{% endblock %}
+
+{% block title %}Home{% endblock %}
+
+{% block header %}
+
+<header class="cabecalho">
+  <nav class="navbar" style="background-color: transparent;">
+    <div class="container-fluid">
+      <div class="justify-content-start" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link menuNav voltar" aria-current="page" href="/busca">Voltar</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+</header>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container bloco-pagamento justify-content-center my-5">
+
+  <!--TÍTULO DA PÁGINA-->
+  <h1 class="text-center titulo mb-4">Página de pagamento</h1>
+
+  <!--BOTÕES-->
+  <div class="row justify-content-start">
+    <h4 class="metodo-pagamento">Método de pagamento: </h4>
+  </div>
+
+  <div class="row botoes-pagamento d-flex justify-content-between mb-3">
+    <button class="btn btn-light" type="submit">Débito</button>
+    <button class="btn btn-light" type="submit">Crédito</button>
+    <button class="btn btn-light" type="submit">Boleto bancário</button>
+  </div>
+
+
+  <!--FORMULÁRIO-->
+
+  <form class="Formulario">
+    <div class="row mb-3">
+      <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Nome completo">
+    </div>
+    <div class="row mb-3">
+      <input type="email" class="form-control" id="formGroupExampleInput2" placeholder="E-mail">
+    </div>
+    <div class="row mb-3">
+      <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Número do cartão">
+    </div>
+    <div class="row justify-content-between mb-5">
+      <input type="text" class="form-control" id="dataExp" placeholder="Data de expiração">
+      <input type="text" class="form-control" id="CVV" placeholder="CVV">
+    </div>
+
+    <div class="row justify-content-between mb-4">
+      <h2 class="valor-total">Valor Total: </h2>
+      <h2 class="valor-total">R$ 80.00</h2>
+    </div>
+
+    <div class="row">
+      <button type="submit" class="btn btn-light finalizar">Realizar Reserva</button>
+    </div>
+
+  </form>
+  <!--FECHAMENTO DE DIV DE FORMULARIO-->
+
+</div>
+<!--FECHAMENTO DE DIV DO BLOCO-PAGAMENTO-->
+
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/busca.js')}}"></script>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
