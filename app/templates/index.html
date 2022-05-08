@@ -8,10 +8,23 @@
   <div class="d-flex justify-content-between align-items-center topo">
     <image src="{{ url_for('static', filename='img/Redditus.png')}}" alt="Redditus Logo" class="redditus-logo">
       {% if user %}
-        <a href="/logout" class="login-button">
-          <img src="{{ url_for('static', filename='img/user.png')}}" alt="user-logo" class="user-logo">
-          {{ user.nome_cliente }}
-        </a>
+      <div class="profile">
+        <div class="dropdown">
+          <a class="btn btn-light dropdown-toggle text-center" href="#" role="button" id="dropdownMenuLink"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="{{ url_for('static', filename='img/user.png')}}" alt="user-logo" class="user-logo"> {{ user.nome_cliente }}
+          </a>
+
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><a class="dropdown-item" href="#">Perfil</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="/logout">Sair</a></li>
+          </ul>
+        </div>
+      </div>
+
         {% else %}
         <a href="/login" class="login-button">
           <img src="{{ url_for('static', filename='img/user.png')}}" alt="user-logo" class="user-logo">
