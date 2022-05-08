@@ -14,6 +14,7 @@ parametros = (
     'SERVER=BRAINIAC\SPDB_BRAINIAC;'
     # Porta
     'PORT=1433;'
+    # eu estive aqui
     # Banco que será utilizado.
     'DATABASE=DB_BRT;'
     # Nome de usuário.
