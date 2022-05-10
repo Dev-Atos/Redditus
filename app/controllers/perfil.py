@@ -12,12 +12,11 @@ from app.__init__ import db
 def login():
     #USUÁRIO REQUISITA O ACESSO A SUA CONTA AO PREENCHER O FORMULÁRIO E ENVIAR(BOTÃO ENTRAR)
     if request.method == 'POST': 
-        print('###############################################################################')
         #print(user.email, user.senha, user.id_cliente, user)
         usuario = request.form['username']
         senha = request.form['senha']
         user = Cliente.query.filter_by(email=usuario).first()
-        print(user)
+        #print(user)
         #CASO NÃO ACHE USUÁRIO OU A SENHA NÃO BATA COM A REGISTRADA DÁ LOGIN INVÁLIDO
         if not user:
             flash('Login Inválido')
@@ -62,7 +61,7 @@ def registra():
 
     return render_template('registro.html')
 
-#DELETAR CONTA
+#DELETAR CONTA NÃO ESTÁ FUNCIONANDO AINDA
 @app.route('/deletar_conta/<id_usuario>')
 def deletarConta(id_usuario):
     db.session.delete(Cliente).where(Cliente.id_cliente == id_usuario)

@@ -1,7 +1,9 @@
+from fileinput import filename
+from http import HTTPStatus
 from app import app, lm
-from app.models.tables import Cliente
-from flask import render_template
-from flask_login import current_user
+from app.models.tables import Cliente, Veiculo
+from flask import abort, redirect, render_template, request, url_for
+from flask_login import current_user, login_required
 
 
 #NECESSÁRIO PARA NÃO DAR ERRO, VERIFICA SE HÁ USUÁRIO SE NÃO TIVER NENHUM ELE CONTINUA MESMO SEM USUÁRIO
@@ -15,6 +17,13 @@ def load_user(id_cliente):
         print (e)
         return None
 
+#SE O USUÁRIO(ANÔNIMO) TENTAR ENTRAR EM ALGUMA PARTE QUE SEJA NECESSÁRIO ESTAR LOGADO ELE CAI PARA LOGIN
+@lm.unauthorized_handler
+def unauthorized():
+    if request.blueprint == 'api':
+        abort(HTTPStatus.UNAUTHORIZED)
+    return redirect(url_for('login'))
+
 @app.route('/')
 def index():
     usuario = load_user(current_user.get_id)
@@ -25,15 +34,22 @@ def index():
 def admin():
     return render_template('admin.html')
 
-@app.route('/busca')
+@app.route('/busca', methods=['GET','POST'])
+@login_required #NECESSÁRIO O USUÁRIO ESTAR LOGADO, CASO NÃO ESTEJA ELE SERÁ REDIRECIONADO PELA FUNÇÃO unauthorized
 def busca():
-    usuario = load_user(current_user.get_id)
-    return render_template('/busca.html', user=usuario)
+    if request.method == 'POST':
+        id_unidade = request.form['id_unidade']
+        #usuario = load_user(current_user.get_id)
+        carros_unidade = Veiculo.query.filter_by(id_unidade=int(id_unidade),disponivel=1).all()
+    return render_template('/busca.html',carros_unidade=carros_unidade) #, user=usuario
 
 @app.route('/pagamento')
+@login_required
 def pagamento():
     usuario = load_user(current_user.get_id)
     return render_template('/pagamento.html', user=usuario)
+
+
 #CRUD
 """
 @app.route('/add',methods=['GET', 'POST'])

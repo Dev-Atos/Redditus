@@ -35,7 +35,7 @@ class Veiculo(db.Model):
     cor = db.Column('cor',db.String(255))
     cap_pessoas = db.Column('cap_pessoas',db.String(2))
     qtd_portas = db.Column('qtd_portas',db.String(2))
-    ano = db.Column('ano',db.DATE)
+    ano = db.Column('ano',db.String)
     valor_diaria = db.Column('valor_diaria',db.String(2))
     disponivel = db.Column('disponivel',db.BOOLEAN)
    

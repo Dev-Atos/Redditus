@@ -58,24 +58,24 @@
 <div class="container col-12">
   <div class="barra-pesquisa">
     <h3>Procure seu veículo:</h2>
-      <form action="">
+      <form action="/busca" method="POST">
 
 
         <div class="row justify-content-start select-pesquisa">
           <div class="col-3 align-items-center">
             <h5>Informações da retirada:</h5>
           </div>
-          <select class="form-select me-2" id="local-input">
-            <option selected>Selecione a unidade</option>
+          <select class="form-select me-2" id="local-input" required="required"  name="id_unidade">
+            <option value="">Selecione a unidade</option>
             <option value="1">São Miguel</option>
             <option value="2">São Paulo</option>
             <option value="3">Guarulhos</option>
           </select>
 
-          <input type="date" class='form-control me-2 data-input' placeholder="aa">
+          <input type="date" class='form-control me-2 data-input' required="required">
 
-          <select class="form-select me-2 hora-input">
-            <option selected>Hora</option>
+          <select class="form-select me-2 hora-input" required="required">
+            <option value="">Hora</option>
             <option value="1">10:00</option>
             <option value="2">10:30</option>
             <option value="3">11:00</option>
@@ -88,28 +88,27 @@
             <h5>Informações da devolução:</h5>
           </div>
 
-          <select class="form-select me-2 local-input">
-            <option selected>Selecione a unidade</option>
+          <select class="form-select me-2 local-input" required="required">
+            <option value="">Selecione a unidade</option>
             <option value="1">São Miguel</option>
             <option value="2">São Paulo</option>
             <option value="3">Guarulhos</option>
           </select>
 
-          <input type="date" class='form-control me-2 data-input'>
+          <input type="date" class='form-control me-2 data-input' required="required">
 
-
-          <select class="form-select me-2 hora-input">
-            <option selected>Hora</option>
+          
+          <select class="form-select me-2 hora-input" required="required">
+            <option value="">Hora</option>
             <option value="1">10:00</option>
             <option value="2">10:30</option>
             <option value="3">11:00</option>
           </select>
 
           <div class="col-2" id="botao-buscar">
-            <a class="btn-light botao text-center align-items-center" href="/busca" type="submit">Buscar
-              Veículo</a>
+            <button class="btn-light botao text-center align-items-center" type="submit">Buscar
+              Veículo</button>
           </div>
-
 
         </div>
 
