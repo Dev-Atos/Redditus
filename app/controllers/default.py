@@ -1,9 +1,9 @@
-from fileinput import filename
 from http import HTTPStatus
 from app import app, lm
 from app.models.tables import Cliente, Veiculo
 from flask import abort, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
+from datetime import date
 
 
 #NECESSÁRIO PARA NÃO DAR ERRO, VERIFICA SE HÁ USUÁRIO SE NÃO TIVER NENHUM ELE CONTINUA MESMO SEM USUÁRIO
@@ -26,8 +26,9 @@ def unauthorized():
 
 @app.route('/')
 def index():
+    data_atual = date.today()
     usuario = load_user(current_user.get_id)
-    return render_template('/index.html', user=usuario)
+    return render_template('/index.html', user=usuario, data_atual=data_atual)
 
 #DESENVOLVENDO...
 @app.route('/admin')
@@ -39,9 +40,13 @@ def admin():
 def busca():
     if request.method == 'POST':
         id_unidade = request.form['id_unidade']
+        print(id_unidade)
         #usuario = load_user(current_user.get_id)
         carros_unidade = Veiculo.query.filter_by(id_unidade=int(id_unidade),disponivel=1).all()
-    return render_template('/busca.html',carros_unidade=carros_unidade) #, user=usuario
+        return render_template('busca.html',carros_unidade=carros_unidade, user=load_user(current_user.get_id)) #, user=usuario
+    print(request.form)
+    return render_template('busca.html')
+
 
 @app.route('/pagamento')
 @login_required
