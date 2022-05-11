@@ -26,7 +26,7 @@ def unauthorized():
 
 @app.route('/')
 def index():
-    data_atual = date.today()
+    data_atual = date.today() #Para desabilitar datas anteriores a atual
     usuario = load_user(current_user.get_id)
     return render_template('/index.html', user=usuario, data_atual=data_atual)
 
@@ -35,24 +35,32 @@ def index():
 def admin():
     return render_template('admin.html')
 
-@app.route('/busca', methods=['GET','POST'])
-@login_required #NECESSÁRIO O USUÁRIO ESTAR LOGADO, CASO NÃO ESTEJA ELE SERÁ REDIRECIONADO PELA FUNÇÃO unauthorized
-def busca():
+@app.route('/busca/<id_unidade>', methods=['GET','POST'])
+#@login_required #NECESSÁRIO O USUÁRIO ESTAR LOGADO, CASO NÃO ESTEJA ELE SERÁ REDIRECIONADO PELA FUNÇÃO unauthorized
+def busca(id_unidade):
     if request.method == 'POST':
-        id_unidade = request.form['id_unidade']
-        print(id_unidade)
-        #usuario = load_user(current_user.get_id)
+        if id_unidade == '0':
+            id_unidade = request.form['id_unidade']
+            #print('CAIUUUUUUUU AQUI NO IFFFFFFFFFFFFFFFFFFFFF')
+            #usuario = load_user(current_user.get_id)
+            carros_unidade = Veiculo.query.filter_by(id_unidade=int(id_unidade),disponivel=1).all()
+            return render_template('busca.html',carros_unidade=carros_unidade, user=load_user(current_user.get_id), id_unidade=id_unidade) #, user=usuario
+        else:
+            if request.form['id_unidade']:
+                id_unidade = request.form['id_unidade']
+                #print('CAIUUUUUUU AQUIIIIIIIII NO IF DO ELSE')
+    else:
         carros_unidade = Veiculo.query.filter_by(id_unidade=int(id_unidade),disponivel=1).all()
-        return render_template('busca.html',carros_unidade=carros_unidade, user=load_user(current_user.get_id)) #, user=usuario
-    print(request.form)
-    return render_template('busca.html')
+        print('CAIUUUUUUU AQUIIIIIIIII NO ELSE')
+        return render_template('busca.html',carros_unidade=carros_unidade, user=load_user(current_user.get_id), id_unidade=id_unidade)
 
 
-@app.route('/pagamento')
+@app.route('/pagamento/<id_unidade>/<id_carro>')
 @login_required
-def pagamento():
+def pagamento(id_unidade,id_carro):
+    print(f'ID da UNIDADE: {id_unidade}\nID DO CARRO: {id_carro}')
     usuario = load_user(current_user.get_id)
-    return render_template('/pagamento.html', user=usuario)
+    return render_template('/pagamento.html', user=usuario, id_unidade=id_unidade, id_carro=id_carro)
 
 
 #CRUD
