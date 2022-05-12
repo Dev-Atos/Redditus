@@ -75,7 +75,7 @@
           </div>
           <div class="card-body">
             <h2 class="card-title">Diária</h2>
-            <p class="card-text">R$ {{c.valor_diaria}}</p>
+            <p class="card-text">{{ "R$ {:,.2f}".format(c.valor_diaria).replace('.',',') }}</p>
           </div>
         </div>
 

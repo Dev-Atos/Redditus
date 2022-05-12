@@ -1,5 +1,3 @@
-import email
-from operator import or_
 from app import app
 from flask import flash, redirect, render_template, request, session, url_for
 from flask_login import current_user, login_user, logout_user

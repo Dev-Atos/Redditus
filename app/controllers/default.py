@@ -1,9 +1,11 @@
 from http import HTTPStatus
+from turtle import update
 from app import app, lm
-from app.models.tables import Cliente, Veiculo
+from app.models.tables import Cliente, Reserva, Veiculo
 from flask import abort, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 from datetime import date
+from app.__init__ import db
 
 
 #NECESSÁRIO PARA NÃO DAR ERRO, VERIFICA SE HÁ USUÁRIO SE NÃO TIVER NENHUM ELE CONTINUA MESMO SEM USUÁRIO
@@ -48,10 +50,9 @@ def busca(id_unidade):
         else:
             if request.form['id_unidade']:
                 id_unidade = request.form['id_unidade']
-                #print('CAIUUUUUUU AQUIIIIIIIII NO IF DO ELSE')
     else:
         carros_unidade = Veiculo.query.filter_by(id_unidade=int(id_unidade),disponivel=1).all()
-        print('CAIUUUUUUU AQUIIIIIIIII NO ELSE')
+        #print('CAIUUUUUUU AQUIIIIIIIII NO ELSE')
         return render_template('busca.html',carros_unidade=carros_unidade, user=load_user(current_user.get_id), id_unidade=id_unidade)
 
 
@@ -62,6 +63,26 @@ def pagamento(id_unidade,id_carro):
     usuario = load_user(current_user.get_id)
     return render_template('/pagamento.html', user=usuario, id_unidade=id_unidade, id_carro=id_carro)
 
+
+@app.route('/reservar/<id_unidade>/<id_carro>',methods=['GET', 'POST'])
+def reservar(id_unidade,id_carro):
+    if request.method == 'POST':
+        print(current_user.get_id, type(current_user.get_id))
+        reserva = Reserva(id_cliente=int(current_user.get_id),id_veiculo=id_carro, id_unidade=id_unidade,id_adm=0,tp_pagamento='Débito',dt_retirada='2022-05-11', dt_devolucao='2022-05-12',valor_total=250, status_veic='RESERVADO')
+        veic_reserva = Veiculo.query.filter_by(id_veiculo=id_carro).first()
+        print(veic_reserva)
+        #print(veic_reserva)
+        db.session.add(reserva)#ADICIONA NO BD
+        db.session.commit()#COMMITA A AÇÃO
+        return 'POST'
+    return 'GET'
+
+
+
+        #REGISTRA NO BANCO DE DADOS OS DADOS DO CLIENTE E FAZ A CRIPTOGRAFIA(BÁSICÃO) DA SENHA DELE
+        #usuario = Cliente(nome_cliente=wUser+' '+wSobrenome, cpf_cnpj=wCpf_Cnpj, cnh=wCnh, dt_nasc=wdt_nasc, email=wEmail, senha=generate_password_hash(wPw, method='sha256'))
+        #db.session.add(usuario)#ADICIONA NO BD
+        #db.session.commit()#COMMITA A AÇÃO
 
 #CRUD
 """

@@ -44,7 +44,7 @@
 
   <!--FORMULÁRIO-->
 
-  <form class="Formulario">
+  <form class="Formulario" action="/reservar/{{id_unidade}}/{{id_carro}}" method="POST">
     <div class="row mb-3">
       <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Nome completo">
     </div>
@@ -52,11 +52,11 @@
       <input type="email" class="form-control" id="formGroupExampleInput2" placeholder="E-mail">
     </div>
     <div class="row mb-3">
-      <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Número do cartão">
+      <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Número do cartão" required="required" name="num_cartao">
     </div>
     <div class="row justify-content-between mb-5">
-      <input type="text" class="form-control" id="dataExp" placeholder="Data de expiração">
-      <input type="text" class="form-control" id="CVV" placeholder="CVV">
+      <input type="text" class="form-control" id="dataExp" placeholder="Data de expiração" required="required" name="dataExp">
+      <input type="text" class="form-control" id="CVV" placeholder="CVV" required="required" name="cvvCartao">
     </div>
 
     <div class="row justify-content-between mb-4">
