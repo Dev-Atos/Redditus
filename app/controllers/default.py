@@ -1,5 +1,4 @@
 from http import HTTPStatus
-import json
 import pyodbc
 from app import app, lm
 from app.models.tables import Cliente, Reserva, Veiculo
@@ -7,7 +6,7 @@ from flask import abort, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 from datetime import date
 from app.__init__ import db
-from flask import json
+from config import parametros
 
 
 #NECESSÁRIO PARA NÃO DAR ERRO, VERIFICA SE HÁ USUÁRIO SE NÃO TIVER NENHUM ELE CONTINUA MESMO SEM USUÁRIO
@@ -43,21 +42,20 @@ def admin():
 @app.route('/busca/<id_unidade>', methods=['GET','POST'])
 #@login_required #NECESSÁRIO O USUÁRIO ESTAR LOGADO, CASO NÃO ESTEJA ELE SERÁ REDIRECIONADO PELA FUNÇÃO unauthorized
 def busca(id_unidade):
+    dicio = request.form
     if request.method == 'POST':
-        print(request.form)
         if id_unidade == '0':
-            id_unidade = request.form['id_unidade']
-            #print('CAIUUUUUUUU AQUI NO IFFFFFFFFFFFFFFFFFFFFF')
-            #usuario = load_user(current_user.get_id)
+            id_unidade = dicio['id_unidade']
+            print(f'IDDDD UNIDADE: {id_unidade}')
             carros_unidade = Veiculo.query.filter_by(id_unidade=int(id_unidade),disponivel=1).all()
-            return render_template('busca.html',carros_unidade=carros_unidade, user=load_user(current_user.get_id), id_unidade=id_unidade) #, user=usuario
+            return render_template('busca.html',carros_unidade=carros_unidade, user=load_user(current_user.get_id), dicio=dicio) #, user=usuario
         else:
             if request.form['id_unidade']:
-                id_unidade = request.form['id_unidade']
+                id_unidade = dicio['id_unidade']
+                print('CAIU AQUIIIIII')
     else:
         carros_unidade = Veiculo.query.filter_by(id_unidade=int(id_unidade),disponivel=1).all()
-        #print('CAIUUUUUUU AQUIIIIIIIII NO ELSE')
-        return render_template('busca.html',carros_unidade=carros_unidade, user=load_user(current_user.get_id), id_unidade=id_unidade, dt_retirada=request.form['dt_retirada'], dt_devolucao=request.form['dt_devolucao'])
+        return render_template('busca.html',carros_unidade=carros_unidade, user=load_user(current_user.get_id), dicio=dicio)
 
 
 @app.route('/pagamento/<id_unidade>/<id_carro>')
@@ -82,12 +80,7 @@ def reservar(id_unidade,id_carro):
 
 def gato(id_carro):
     #Necessário para conectar
-    dados_conexao = (
-        'Driver={SQL Server};'
-        'Server=BRAINIAC\SPDB_BRAINIAC;'
-        'Database=DB_BRT;'
-    )
-    conexao = pyodbc.connect(dados_conexao)
+    conexao = pyodbc.connect(parametros)
     #Cursor == new Query
     cursor = conexao.cursor()
     query_executa = ("""UPDATE VEICULO SET DISPONIVEL = 0 WHERE ID_VEICULO = ?""")
