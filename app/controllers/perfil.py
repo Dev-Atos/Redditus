@@ -62,5 +62,8 @@ def registra():
 #DELETAR CONTA NÃO ESTÁ FUNCIONANDO AINDA
 @app.route('/deletar_conta/<id_usuario>')
 def deletarConta(id_usuario):
-    db.session.delete(Cliente).where(Cliente.id_cliente == id_usuario)
+    usuario = current_user.get_id
+    deletar_conta = Cliente.query.filter_by(id_usuario=usuario.id).first()
+    db.session.delete(deletar_conta)
+    logout()
     db.session.commit()

@@ -28,13 +28,13 @@ class Veiculo(db.Model):
     placa = db.Column('placa',db.String(7))
     marca = db.Column('marca',db.String(255))
     modelo = db.Column('modelo',db.String(255))
-    cam_aut = db.Column('cam_aut',db.BOOLEAN)
+    cam_aut = db.Column('cam_aut',db.Boolean)
     cor = db.Column('cor',db.String(255))
     cap_pessoas = db.Column('cap_pessoas',db.String(2))
     qtd_portas = db.Column('qtd_portas',db.String(2))
     ano = db.Column('ano',db.String)
     valor_diaria = db.Column('valor_diaria',db.String(2))
-    disponivel = db.Column('disponivel',db.Integer)
+    disponivel = db.Column('disponivel',db.String)
    
     def __self__(self,  id_veiculo, disponivel): #Para ser possível a instanciação de classe
             self.id_veiculo = id_veiculo
