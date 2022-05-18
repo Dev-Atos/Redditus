@@ -3,6 +3,7 @@ from flask import flash, redirect, render_template, request, session, url_for
 from flask_login import current_user, login_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.models.tables import Cliente
+from app.models.json import escrever_json, ler_json
 from app.__init__ import db
 
 
@@ -23,9 +24,10 @@ def login():
                 flash('Senha incorreta.')
                 return redirect(url_for('login'))
             else:
-                #LOGA O USUÁRIO E O REDIRECIONA PARA A PÁGINA INICIAL
+                #LOGA O USUÁRIO E O REDIRECIONA PARA última página visitada
+                lp = ler_json()
                 login_user(user)
-                return redirect(url_for('index'))
+                return redirect(lp['pagina_visitadas'][-1])
     #GET QUE SERIA O USUÁRIO ENTRAR NA PÁGINA DE LOGIN
     return render_template('/login.html')
 

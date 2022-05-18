@@ -1,5 +1,7 @@
 from http import HTTPStatus
 import pyodbc
+from app.models.json import escrever_json, ler_json
+from tomlkit import string
 from app import app, lm
 from app.models.tables import Cliente, Reserva, Veiculo
 from flask import abort, redirect, render_template, request, url_for
@@ -7,7 +9,7 @@ from flask_login import current_user, login_required
 from datetime import date
 from app.__init__ import db
 from config import parametros
-
+from pandas import read_sql
 
 #NECESSÁRIO PARA NÃO DAR ERRO, VERIFICA SE HÁ USUÁRIO SE NÃO TIVER NENHUM ELE CONTINUA MESMO SEM USUÁRIO
 @lm.user_loader
@@ -29,10 +31,22 @@ def unauthorized():
 
 @app.route('/')
 def index():
-    data_atual = date.today() #Para desabilitar datas anteriores a atual
     usuario = load_user(current_user.get_id)
-    dicio = {'user':usuario, 'data_atual':data_atual}
-    return render_template('/index.html', dicio=dicio)
+    if usuario:
+        dicio = {
+            'sessao':{
+                'id_usuario': usuario.id_cliente,
+                'nome_usuario': usuario.nome_cliente
+            },
+            'data_minima': string(date.today())
+        }
+        escrever_json(dicio)
+        return render_template('/index.html', dicio=dicio)
+    else:
+        dicio = {'data_minima': string(date.today()), 'pagina_visitadas':['/']}
+        escrever_json(dicio)
+        print(ler_json())
+        return render_template('/index.html',dicio=ler_json())
 
 #DESENVOLVENDO...
 @app.route('/admin')
@@ -42,58 +56,67 @@ def admin():
 @app.route('/busca/<id_unidade>', methods=['GET','POST'])
 #@login_required #NECESSÁRIO O USUÁRIO ESTAR LOGADO, CASO NÃO ESTEJA ELE SERÁ REDIRECIONADO PELA FUNÇÃO unauthorized
 def busca(id_unidade):
-    dicio = request.form
     if request.method == 'POST':
+        dicio = ler_json()
+        print(dicio)
+        dicio['id_unidade'] = request.form['id_unidade']
+        dicio['pagina_visitadas'].append(f'/busca/{request.form["id_unidade"]}')
+        print(f'Aquiiiiiiiiiiiiiiiiii: {dicio} tipo {type(dicio)}')
         if id_unidade == '0':
-            id_unidade = dicio['id_unidade']
-            print(f'IDDDD UNIDADE: {id_unidade}')
-            carros_unidade = Veiculo.query.filter_by(id_unidade=int(id_unidade),disponivel=1).all()
-            return render_template('busca.html',carros_unidade=carros_unidade, user=load_user(current_user.get_id), dicio=dicio) #, user=usuario
+            print('POSTTTTTTTTTTTT')
+            carros_unidade = Veiculo.query.filter_by(id_unidade=int(dicio['id_unidade']),disponivel=1).all()
+            escrever_json(dicio)
+            return render_template('busca.html',carros_unidade=carros_unidade, user=load_user(current_user.get_id), dicio=ler_json()) #, user=usuario
         else:
-            if request.form['id_unidade']:
-                id_unidade = dicio['id_unidade']
-                print('CAIU AQUIIIIII')
+            id_unidade = '0'
     else:
-        carros_unidade = Veiculo.query.filter_by(id_unidade=int(id_unidade),disponivel=1).all()
-        return render_template('busca.html',carros_unidade=carros_unidade, user=load_user(current_user.get_id), dicio=dicio)
+        print('GETTTTTTTT')
+        dicio = ler_json()
+        dicio['pagina_visitadas'].append(f'/busca/{dicio["id_unidade"]}')
+        print(dicio)
+        carros_unidade = Veiculo.query.filter_by(id_unidade=int(dicio['id_unidade']),disponivel=1).all()
+        return render_template('busca.html',carros_unidade=carros_unidade, user=load_user(current_user.get_id), dicio=ler_json())
 
 
-@app.route('/pagamento/<id_unidade>/<id_carro>')
+@app.route('/pagamento/<id_unidade>/<id_carro>', methods=['GET','POST'])
 @login_required
 def pagamento(id_unidade,id_carro):
-    print(f'ID da UNIDADE: {id_unidade}\nID DO CARRO: {id_carro}')
-    usuario = load_user(current_user.get_id)
-    return render_template('/pagamento.html', user=usuario, id_unidade=id_unidade, id_carro=id_carro)
+    dicio = ler_json()
+    if request.method == 'POST':
+        dicio['id_carro'] = id_carro
+        print(dicio)
+        escrever_json(dicio)
+        return render_template('/pagamento.html', dicio=ler_json())
+    else:
+        return render_template('/pagamento.html', dicio=ler_json())
 
-
-@app.route('/reservar/<id_unidade>/<id_carro>',methods=['GET', 'POST'])
 def reservar(id_unidade,id_carro):
     if request.method == 'POST':
         print(current_user.get_id, type(current_user.get_id))
-        reserva = Reserva(id_cliente=int(current_user.get_id),id_veiculo=id_carro, id_unidade=id_unidade,id_adm=0,tp_pagamento='Débito',dt_retirada='2022-05-11', dt_devolucao='2022-05-12',valor_total=250, status_veic='RESERVADO')
-        gato(id_carro)
+        gato("""INSERT INTO RESERVA
+        SELECT ?,?,?,0,'DEBITO',?,?,?,'RESERVADO'""", 
+        int(current_user.get_id),id_carro,id_unidade,'dt_retirada','dt_devolucao','valor_total',consulta=1)
+        #Reserva(id_cliente=int(current_user.get_id),id_veiculo=id_carro, id_unidade=id_unidade,id_adm=0,tp_pagamento='Débito',dt_retirada='2022-05-11', dt_devolucao='2022-05-12',valor_total=250, status_veic='RESERVADO')
+        gato("""UPDATE VEICULO SET DISPONIVEL = 0
+                WHERE ID_VEICULO = ?""", id_carro, consulta=0)
         #print(veic_reserva)
-        db.session.add(reserva)#ADICIONA NO BD
         db.session.commit()#COMMITA A AÇÃO
         return 'POST'
     return 'GET'
 
-def gato(id_carro):
-    #Necessário para conectar
+#FUNCAO PARA EXECUTAR COMANDOS SQL
+def gato(query_executa, *args, **kwards):
     conexao = pyodbc.connect(parametros)
-    #Cursor == new Query
     cursor = conexao.cursor()
-    query_executa = ("""UPDATE VEICULO SET DISPONIVEL = 0 WHERE ID_VEICULO = ?""")
-    cursor.execute(query_executa,id_carro)
-    cursor.commit()
+    if kwards.get('consulta') == 0:
+        cursor.execute(query_executa,[c for c in args])
+        cursor.commit()
+        return 'UPDATE FEITO COM SUCESSO !'
+    elif kwards.get('consulta') == 1:
+        return read_sql(query_executa,conexao)
+    else:
+        return f'Especifique a ação: \n\nconsulta=0(UPDATE, DELETE, ETC)\nconsulta=1(select)'
 
-
-
-
-        #REGISTRA NO BANCO DE DADOS OS DADOS DO CLIENTE E FAZ A CRIPTOGRAFIA(BÁSICÃO) DA SENHA DELE
-        #usuario = Cliente(nome_cliente=wUser+' '+wSobrenome, cpf_cnpj=wCpf_Cnpj, cnh=wCnh, dt_nasc=wdt_nasc, email=wEmail, senha=generate_password_hash(wPw, method='sha256'))
-        #db.session.add(usuario)#ADICIONA NO BD
-        #db.session.commit()#COMMITA A AÇÃO
 
 #CRUD
 """

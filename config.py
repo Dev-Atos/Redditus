@@ -17,10 +17,7 @@ parametros = (
     # eu estive aqui
     # Banco que será utilizado.
     'DATABASE=DB_BRT;'
-    # Nome de usuário.
-    'UID=sa;'
-    # Senha/Token.
-    'PWD=sa123')
+)
 
 url_db = quote_plus(parametros)
 
