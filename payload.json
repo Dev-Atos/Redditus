@@ -1,7 +1,19 @@
 {
     "sessao": {
         "id_usuario": 14,
-        "nome_usuario": "Rai Mota"
+        "nome_usuario": "Rai Mota",
+        "email": "raimota5412@gmail.com"
     },
-    "data_minima": "2022-05-17"
+    "sistema": {
+        "data_minima": "2022-05-18",
+        "id_unidade": "1",
+        "dt_reserva": [
+            "2022-05-18",
+            "2022-05-20"
+        ],
+        "valor_diaria": "92.00",
+        "qtd_dias": 2,
+        "valor_total_sem_descontin": "R$ 184.00",
+        "valor_total": "R$ 165.60"
+    }
 }

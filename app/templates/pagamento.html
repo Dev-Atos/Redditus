@@ -44,12 +44,12 @@
 
   <!--FORMULÁRIO-->
 
-  <form class="Formulario" action="/reservar/{{id_unidade}}/{{id_carro}}" method="POST">
+  <form class="Formulario" action="" method="POST">
     <div class="row mb-3">
-      <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Nome completo">
+      <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Nome completo" value="{{dicio['sessao']['nome_usuario']}}" readonly>
     </div>
     <div class="row mb-3">
-      <input type="email" class="form-control" id="formGroupExampleInput2" placeholder="E-mail">
+      <input type="email" class="form-control" id="formGroupExampleInput2" placeholder="E-mail" value="{{dicio['sessao']['email']}}">
     </div>
     <div class="row mb-3">
       <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Número do cartão" required="required" name="num_cartao">
@@ -61,7 +61,12 @@
 
     <div class="row justify-content-between mb-4">
       <h2 class="valor-total">Valor Total: </h2>
-      <h2 class="valor-total">R$ 80.00</h2>
+      <h2 class="valor-total">{{ dicio['sistema']['valor_total'] }}</h2>
+    </div>
+
+    <div class="row justify-content-end">
+        <p>Quantidade dias {{dicio['sistema']['qtd_dias']}} x {{ dicio['sistema']['valor_diaria'].replace('.',',') }} = {{dicio['sistema']['valor_total_sem_descontin']}}</p>
+        <p></p>
     </div>
 
     <div class="row">

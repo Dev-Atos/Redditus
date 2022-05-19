@@ -27,7 +27,7 @@ def login():
                 #LOGA O USUÁRIO E O REDIRECIONA PARA última página visitada
                 lp = ler_json()
                 login_user(user)
-                return redirect(lp['pagina_visitadas'][-1])
+                return redirect('/')
     #GET QUE SERIA O USUÁRIO ENTRAR NA PÁGINA DE LOGIN
     return render_template('/login.html')
 

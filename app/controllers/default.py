@@ -1,15 +1,15 @@
 from http import HTTPStatus
-import pyodbc
+from app.models.calculos import delta_dias, descontin10
+from app.models.comandos_sql import gato
 from app.models.json import escrever_json, ler_json
 from tomlkit import string
 from app import app, lm
-from app.models.tables import Cliente, Reserva, Veiculo
+from app.models.tables import Cliente, Veiculo
 from flask import abort, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 from datetime import date
 from app.__init__ import db
-from config import parametros
-from pandas import read_sql
+
 
 #NECESSÁRIO PARA NÃO DAR ERRO, VERIFICA SE HÁ USUÁRIO SE NÃO TIVER NENHUM ELE CONTINUA MESMO SEM USUÁRIO
 @lm.user_loader
@@ -36,14 +36,19 @@ def index():
         dicio = {
             'sessao':{
                 'id_usuario': usuario.id_cliente,
-                'nome_usuario': usuario.nome_cliente
+                'nome_usuario': usuario.nome_cliente,
+                'email': usuario.email
             },
-            'data_minima': string(date.today())
+            'sistema':{
+                'data_minima': string(date.today())
+            }
         }
         escrever_json(dicio)
         return render_template('/index.html', dicio=dicio)
     else:
-        dicio = {'data_minima': string(date.today()), 'pagina_visitadas':['/']}
+        dicio = {'sistema':{
+                'data_minima': string(date.today())
+            }}
         escrever_json(dicio)
         print(ler_json())
         return render_template('/index.html',dicio=ler_json())
@@ -58,13 +63,12 @@ def admin():
 def busca(id_unidade):
     if request.method == 'POST':
         dicio = ler_json()
-        print(dicio)
-        dicio['id_unidade'] = request.form['id_unidade']
-        dicio['pagina_visitadas'].append(f'/busca/{request.form["id_unidade"]}')
+        dicio['sistema']['id_unidade'] = request.form['id_unidade']
+        dicio['sistema']['dt_reserva'] = [request.form['dt_retirada'],request.form['dt_devolucao']]
         print(f'Aquiiiiiiiiiiiiiiiiii: {dicio} tipo {type(dicio)}')
         if id_unidade == '0':
             print('POSTTTTTTTTTTTT')
-            carros_unidade = Veiculo.query.filter_by(id_unidade=int(dicio['id_unidade']),disponivel=1).all()
+            carros_unidade = Veiculo.query.filter_by(id_unidade=int(dicio['sistema']['id_unidade']),disponivel=1).all()
             escrever_json(dicio)
             return render_template('busca.html',carros_unidade=carros_unidade, user=load_user(current_user.get_id), dicio=ler_json()) #, user=usuario
         else:
@@ -72,78 +76,36 @@ def busca(id_unidade):
     else:
         print('GETTTTTTTT')
         dicio = ler_json()
-        dicio['pagina_visitadas'].append(f'/busca/{dicio["id_unidade"]}')
         print(dicio)
-        carros_unidade = Veiculo.query.filter_by(id_unidade=int(dicio['id_unidade']),disponivel=1).all()
+        carros_unidade = Veiculo.query.filter_by(id_unidade=int(dicio['sistema']['id_unidade']),disponivel=1).all()
         return render_template('busca.html',carros_unidade=carros_unidade, user=load_user(current_user.get_id), dicio=ler_json())
 
 
-@app.route('/pagamento/<id_unidade>/<id_carro>', methods=['GET','POST'])
+@app.route('/pagamento/<id_carro>', methods=['GET','POST'])
 @login_required
-def pagamento(id_unidade,id_carro):
+def pagamento(id_carro):
     dicio = ler_json()
     if request.method == 'POST':
-        dicio['id_carro'] = id_carro
-        print(dicio)
+        dicio['sistema']['id_carro'] = id_carro
+        print(f'PAGAMENTO: s{dicio}')
         escrever_json(dicio)
         return render_template('/pagamento.html', dicio=ler_json())
     else:
+        valor_diaria = gato("""SELECT VALOR_DIARIA FROM VEICULO WHERE ID_VEICULO = ?""", id_carro,consulta=1)
+        dias = delta_dias(dicio["sistema"]["dt_reserva"])
+        dicio['sistema']['valor_diaria'] = f"{float(valor_diaria.fetchone()[0]):,.2f}"
+        dicio['sistema']['qtd_dias'] = dias
+        dicio['sistema']['valor_total_sem_descontin'] = f"R$ {float(float(dicio['sistema']['valor_diaria']) * dias):.2f}"
+        dicio['sistema']['valor_total'] = f"R$ {descontin10(dicio['sistema']['valor_diaria'], dias):.2f}"
+        escrever_json(dicio)
         return render_template('/pagamento.html', dicio=ler_json())
 
 def reservar(id_unidade,id_carro):
-    if request.method == 'POST':
-        print(current_user.get_id, type(current_user.get_id))
-        gato("""INSERT INTO RESERVA
-        SELECT ?,?,?,0,'DEBITO',?,?,?,'RESERVADO'""", 
-        int(current_user.get_id),id_carro,id_unidade,'dt_retirada','dt_devolucao','valor_total',consulta=1)
-        #Reserva(id_cliente=int(current_user.get_id),id_veiculo=id_carro, id_unidade=id_unidade,id_adm=0,tp_pagamento='Débito',dt_retirada='2022-05-11', dt_devolucao='2022-05-12',valor_total=250, status_veic='RESERVADO')
-        gato("""UPDATE VEICULO SET DISPONIVEL = 0
-                WHERE ID_VEICULO = ?""", id_carro, consulta=0)
-        #print(veic_reserva)
-        db.session.commit()#COMMITA A AÇÃO
-        return 'POST'
-    return 'GET'
-
-#FUNCAO PARA EXECUTAR COMANDOS SQL
-def gato(query_executa, *args, **kwards):
-    conexao = pyodbc.connect(parametros)
-    cursor = conexao.cursor()
-    if kwards.get('consulta') == 0:
-        cursor.execute(query_executa,[c for c in args])
-        cursor.commit()
-        return 'UPDATE FEITO COM SUCESSO !'
-    elif kwards.get('consulta') == 1:
-        return read_sql(query_executa,conexao)
-    else:
-        return f'Especifique a ação: \n\nconsulta=0(UPDATE, DELETE, ETC)\nconsulta=1(select)'
-
-
-#CRUD
-"""
-@app.route('/add',methods=['GET', 'POST'])
-def add():
-    if request.method == 'POST':
-        estudantes = Estudantes(nome=request.form['nome'], idade=request.form['idade']) #precisa passar os campos senão dá erro
-        db.session.add(estudantes)
-        db.session.commit() #Precisa commitar
-        return redirect(url_for('index'))
-    return render_template('add.html')
-
-@app.route('/edit/<id>', methods=['GET','POST'])
-def edit(id):
-    estudantes = Estudantes.query.get(id)
-    if request.method == 'POST':
-        estudantes.nome = request.form['nome']
-        estudantes.idade = request.form['idade']
-        db.session.commit()
-        return redirect(url_for('index'))    
-    return render_template('edit.html', estudantes=estudantes)
-        
-
-@app.route('/delete/<id>')
-def delete(id):
-    estudante = Estudantes.query.get(id)
-    db.session.delete(estudante)
-    db.session.commit()
-    return redirect(url_for('index'))
-"""
+    gato("""INSERT INTO RESERVA
+    SELECT ?,?,?,0,'DEBITO',?,?,?,'RESERVADO'""", 
+    int(current_user.get_id),id_carro,id_unidade,'dt_retirada','dt_devolucao','valor_total',consulta=1)
+    #Reserva(id_cliente=int(current_user.get_id),id_veiculo=id_carro, id_unidade=id_unidade,id_adm=0,tp_pagamento='Débito',dt_retirada='2022-05-11', dt_devolucao='2022-05-12',valor_total=250, status_veic='RESERVADO')
+    gato("""UPDATE VEICULO SET DISPONIVEL = 0
+            WHERE ID_VEICULO = ?""", id_carro, consulta=0)
+    #print(veic_reserva)
+    db.session.commit()#COMMITA A AÇÃO
