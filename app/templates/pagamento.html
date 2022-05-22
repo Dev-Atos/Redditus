@@ -13,7 +13,7 @@
     <div class="container-fluid">
       <div class="justify-content-start" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link menuNav voltar" aria-current="page" href="{{url_for('busca', id_unidade=id_unidade)}}">Voltar</a>
+          <a class="nav-link menuNav voltar" aria-current="page" href="{{url_for('busca', id_unidade=dicio['sistema']['id_carro'])}}">Voltar</a>
         </div>
       </div>
     </div>
@@ -65,7 +65,7 @@
     </div>
 
     <div class="row justify-content-end">
-        <p>Quantidade dias {{dicio['sistema']['qtd_dias']}} x {{ dicio['sistema']['valor_diaria'].replace('.',',') }} = {{dicio['sistema']['valor_total_sem_descontin']}}</p>
+        <p>Quantidade dias {{ dicio['sistema']['qtd_dias'] }} x {{ dicio['sistema']['valor_diaria'] }} = {{dicio['sistema']['valor_total_sem_descontin']}}</p>
         <p></p>
     </div>
 

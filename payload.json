@@ -5,15 +5,11 @@
         "email": "raimota5412@gmail.com"
     },
     "sistema": {
-        "data_minima": "2022-05-18",
-        "id_unidade": "1",
-        "dt_reserva": [
-            "2022-05-18",
-            "2022-05-20"
-        ],
-        "valor_diaria": "92.00",
-        "qtd_dias": 2,
-        "valor_total_sem_descontin": "R$ 184.00",
-        "valor_total": "R$ 165.60"
+        "data_minima": "2022-05-22",
+        "paginas_visitadas": [
+            [
+                "/"
+            ]
+        ]
     }
 }

@@ -5,10 +5,10 @@ import pyodbc
 def gato(query_executa, *args, **kwards):
     conexao = pyodbc.connect(parametros)
     cursor = conexao.cursor()
+    
     if kwards.get('consulta') == 0:
         cursor.execute(query_executa,[c for c in args])
         cursor.commit()
-        return 'UPDATE FEITO COM SUCESSO !'
     elif kwards.get('consulta') == 1:
         return cursor.execute(query_executa,[c for c in args])
     else:

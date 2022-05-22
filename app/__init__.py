@@ -4,6 +4,7 @@ from flask_script import Manager #Migração banco de dados
 from flask_migrate import Migrate, MigrateCommand #migração Banco de dados
 from flask_sqlalchemy import SQLAlchemy
 
+
 app = Flask(__name__)
 
 app.config.from_object('config')
@@ -20,8 +21,5 @@ lm = LoginManager()
 lm.init_app(app)
 
 from app.models.tables import Cliente
-from app.models.tables import Unidade
-from app.models.tables import Administrador
 from app.models.tables import Veiculo
-from app.models.tables import Reserva
-from app.controllers import default,perfil
+from app.controllers import default,perfil,reservar
