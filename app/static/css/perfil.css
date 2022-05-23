@@ -1,0 +1,78 @@
+.profile {
+    background-color: white;
+    padding: 25px;
+    width: 100%;
+    margin-left: 0px;
+}
+.profile img {
+    width: 12rem;
+    height: 12rem;
+}
+.infos {
+    color: black;
+}
+.infos h6 {
+    color: #444444;
+}
+
+.nome h1 {
+    font-size: 3rem;
+}
+
+.reservas {
+    border: 2px solid red;
+    background-color: white;
+    border-radius: 15px;
+    width: 98%;
+    margin: auto;
+    padding: 2px;
+}
+
+.reserva {
+    background-color: white;
+    width: 95%;
+    margin: auto;
+    border-bottom: 1px solid gray;
+    transition: 0.3s;
+}
+
+.reserva:hover {
+    background-color: #dddddd;
+}
+
+.item {
+    padding: 0;
+    margin: auto;
+}
+
+.titulo {
+    font-weight: 700;
+}
+
+.butao {
+    background-color: rgba(255, 0, 0, 0.75);
+    color: white;
+    margin: 0 auto;
+    transition: 0.2s;
+}
+
+.butao:hover {
+    color: white;
+    background-color: #ff0000;
+}
+
+.cancelar {
+    background-color: rgba(255, 0, 0, 0.75);
+    color: white;
+    text-decoration: none;
+    width: 100%;
+    font-size: 15px;
+    padding: 4px;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+
+.cancelar:hover {
+    color: white;
+    background-color: #ff0000;
+}

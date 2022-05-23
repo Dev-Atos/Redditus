@@ -1,0 +1,15 @@
+{
+    "sessao": {
+        "id_usuario": 34,
+        "nome_usuario": "Rai teste",
+        "email": "teste@gmail.com"
+    },
+    "sistema": {
+        "data_minima": "2022-05-22",
+        "paginas_visitadas": [
+            [
+                "/"
+            ]
+        ]
+    }
+}

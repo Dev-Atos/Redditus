@@ -7,16 +7,16 @@
 <header class="cabecalho">
   <div class="d-flex justify-content-between align-items-center topo">
     <image src="{{ url_for('static', filename='img/Redditus.png')}}" alt="Redditus Logo" class="redditus-logo">
-      {% if user %}
+      {% if dicio['sessao'] %}
       <div class="profile">
         <div class="dropdown">
           <a class="btn btn-light dropdown-toggle text-center" href="#" role="button" id="dropdownMenuLink"
             data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="{{ url_for('static', filename='img/user.png')}}" alt="user-logo" class="user-logo"> {{ user.nome_cliente }}
+            <img src="{{ url_for('static', filename='img/user.png')}}" alt="user-logo" class="user-logo"> {{ dicio['sessao']['nome_usuario'] }}
           </a>
 
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Perfil</a></li>
+            <li><a class="dropdown-item" href="/perfil">Perfil</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -58,27 +58,61 @@
 <div class="container col-12">
   <div class="barra-pesquisa">
     <h3>Procure seu veículo:</h2>
-      <form action="">
+      <form action="/busca/0" method="POST">
 
 
         <div class="row justify-content-start select-pesquisa">
           <div class="col-3 align-items-center">
             <h5>Informações da retirada:</h5>
           </div>
-          <select class="form-select me-2" id="local-input">
-            <option selected>Selecione a unidade</option>
+          <select class="form-select me-2" id="local-input" required="required"  name="id_unidade">
+            <option value="">Selecione a unidade</option>
             <option value="1">São Miguel</option>
             <option value="2">São Paulo</option>
             <option value="3">Guarulhos</option>
+            <option value="4">Campinas</option>
+            <option value="5">São José dos Campos</option>
+            <option value="6">Santo André</option>
+            <option value="7">Ribeirão Preto</option>
+            <option value="8">Sorocaba</option>
+            <option value="9">Santos</option>
+            <option value="10">Suzano</option>
+            <option value="11">Piracicaba</option>
+            <option value="12">Osasco</option>
+            <option value="13">Barueri</option>
+            <option value="14">Rio de Janeiro</option>
+            <option value="15">Belo Horizonte</option>
           </select>
 
-          <input type="date" class='form-control me-2 data-input' placeholder="aa">
+          <input type="date" class='form-control me-2 data-input' required="required" min="{{ dicio['sistema']['data_minima'] }}" name="dt_retirada">
 
-          <select class="form-select me-2 hora-input">
-            <option selected>Hora</option>
-            <option value="1">10:00</option>
-            <option value="2">10:30</option>
-            <option value="3">11:00</option>
+          <select class="form-select me-2 hora-input" required="required">
+            <option value="">Hora</option>
+            <option value="1">08:00</option>
+            <option value="2">08:30</option>
+            <option value="3">09:00</option>
+            <option value="4">09:30</option>
+            <option value="5">10:00</option>
+            <option value="6">10:30</option>
+            <option value="7">11:00</option>
+            <option value="8">11:30</option>
+            <option value="9">12:00</option>
+            <option value="10">12:30</option>
+            <option value="11">13:00</option>
+            <option value="12">13:30</option>
+            <option value="13">14:00</option>
+            <option value="14">14:30</option>
+            <option value="15">15:00</option>
+            <option value="16">15:30</option>
+            <option value="17">16:00</option>
+            <option value="18">16:30</option>
+            <option value="19">17:00</option>
+            <option value="20">17:30</option>
+            <option value="21">18:00</option>
+            <option value="22">18:30</option>
+            <option value="23">19:00</option>
+            <option value="24">19:30</option>
+            <option value="25">20:00</option>
           </select>
 
         </div>
@@ -88,28 +122,61 @@
             <h5>Informações da devolução:</h5>
           </div>
 
-          <select class="form-select me-2 local-input">
-            <option selected>Selecione a unidade</option>
+          <select class="form-select me-2 local-input" required="required">
+            <option value="">Selecione a unidade</option>
             <option value="1">São Miguel</option>
             <option value="2">São Paulo</option>
             <option value="3">Guarulhos</option>
+            <option value="4">Campinas</option>
+            <option value="5">São José dos Campos</option>
+            <option value="6">Santo André</option>
+            <option value="7">Ribeirão Preto</option>
+            <option value="8">Sorocaba</option>
+            <option value="9">Santos</option>
+            <option value="10">Suzano</option>
+            <option value="11">Piracicaba</option>
+            <option value="12">Osasco</option>
+            <option value="13">Barueri</option>
+            <option value="14">Rio de Janeiro</option>
+            <option value="15">Belo Horizonte</option>
           </select>
 
-          <input type="date" class='form-control me-2 data-input'>
+          <input type="date" class='form-control me-2 data-input' required="required" min="{{ dicio['sistema']['data_minima'] }}" name="dt_devolucao">
 
-
-          <select class="form-select me-2 hora-input">
-            <option selected>Hora</option>
-            <option value="1">10:00</option>
-            <option value="2">10:30</option>
-            <option value="3">11:00</option>
+          
+          <select class="form-select me-2 hora-input" required="required">
+            <option value="">Hora</option>
+            <option value="1">08:00</option>
+            <option value="2">08:30</option>
+            <option value="3">09:00</option>
+            <option value="4">09:30</option>
+            <option value="5">10:00</option>
+            <option value="6">10:30</option>
+            <option value="7">11:00</option>
+            <option value="8">11:30</option>
+            <option value="9">12:00</option>
+            <option value="10">12:30</option>
+            <option value="11">13:00</option>
+            <option value="12">13:30</option>
+            <option value="13">14:00</option>
+            <option value="14">14:30</option>
+            <option value="15">15:00</option>
+            <option value="16">15:30</option>
+            <option value="17">16:00</option>
+            <option value="18">16:30</option>
+            <option value="19">17:00</option>
+            <option value="20">17:30</option>
+            <option value="21">18:00</option>
+            <option value="22">18:30</option>
+            <option value="23">19:00</option>
+            <option value="24">19:30</option>
+            <option value="25">20:00</option>
           </select>
 
           <div class="col-2" id="botao-buscar">
-            <a class="btn-light botao text-center align-items-center" href="/busca" type="submit">Buscar
-              Veículo</a>
+            <button class="btn-light botao text-center align-items-center" type="submit">Buscar
+              Veículo</button>
           </div>
-
 
         </div>
 

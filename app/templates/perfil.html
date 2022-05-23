@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block link %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/perfil.css')}}">
+{% endblock %}
+
+{% block title %}Home{% endblock %}
+
+{% block header %}
+
+<header class="cabecalho">
+  <div class="d-flex justify-content-between align-items-center topo">
+    <a href="/">
+      <image src="{{ url_for('static', filename='img/Redditus.png')}}" alt="Redditus Logo" class="redditus-logo">
+    </a>
+
+  </div>
+
+  <nav class="navbar navbar-expand-lg" style="background-color: #e5e5e5;">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-around" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link menuNav" aria-current="page" href="/">Home</a>
+          <a class="nav-link menuNav saiba-mais" href="#">Contate-nos</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+</header>
+{% endblock %}
+
+
+{% block content %}
+
+<h1 class="text-center my-4">Seu Perfil</h1>
+
+<div class="row profile justify-content-start">
+  <div class="col-2 me-4">
+    <img src="{{ url_for('static', filename='img/user.png')}}" alt="user-logo" class="user-logo">
+  </div>
+
+  <div class="col-7 me-4 infos">
+    <h1>{{dicio['sessao']['nome_usuario']}}</h1>
+    <h6>E-mail: {{dicio['sessao']['email']}}</h6>
+    <h6>CPF: {{dados_perfil[0]}} | CNH: {{dados_perfil[1]}}</h6>
+    <h6>Data de Nascimento: {{dados_perfil[2]}}</h6>
+  </div>
+  <div class="col ms-4">
+    <button type="submit" class="btn butao mt-3"><a href="/deletar_conta/{{dicio['sessao']['id_usuario']}}">Deletar
+        Conta</a></button>
+  </div>
+</div>
+
+<h4 class="text-center my-3">Reservas</h4>
+{% if zero != 0 %}
+<div class="reservas">
+
+  
+    {% for d in dados_reserva %}
+    <div class="row reserva cols-16">
+      <div class="col-2">
+        <img src="/static/img/carros/{{d[2]}}.png" class="card-img-top" alt="...">
+      </div>
+      <div class="col item">
+        <p class="titulo">Marca</p>
+        <p>{{d[1]}}</p>
+      </div>
+      <div class="col item">
+        <p class="titulo">Modelo</p>
+        <p>{{d[2].upper()}}</p>
+      </div>
+      <div class="col item">
+        <p class="titulo">Data da Retirada</p>
+        <p>{{d[3]}}</p>
+      </div>
+      <div class="col item">
+        <p class="titulo">Data da Devolução</p>
+        <p>{{d[4]}}</p>
+      </div>
+      <div class="col item">
+        <p class="titulo">Valor da Reserva</p>
+        <p>R$ {{d[5]}}</p>
+      </div>
+      <div class="col item">
+        <p class="titulo">Unidade</p>
+        <p>{{d[0]}}</p>
+      </div>
+      <div class="col item">
+        <p class="titulo">Status</p>
+        <p>{{d[6]}}</p>
+      </div>
+      {% if d[6] != 'CANCELADA' %}
+      <div class="col item">
+        <a class="cancelar" href="/cancelar_reserva/{{d[7]}}/{{d[8]}}">Cancelar Reserva</a>
+      </div>
+      {% endif %}
+
+    </div>
+    {% endfor %}
+
+
+
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/busca.js')}}"></script>
+{% endblock %}

@@ -13,7 +13,7 @@
     <div class="container-fluid">
       <div class="justify-content-start" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link menuNav voltar" aria-current="page" href="/busca">Voltar</a>
+          <a class="nav-link menuNav voltar" aria-current="page" href="{{url_for('busca', id_unidade=dicio['sistema']['id_carro'])}}">Voltar</a>
         </div>
       </div>
     </div>
@@ -44,24 +44,29 @@
 
   <!--FORMULÁRIO-->
 
-  <form class="Formulario">
+  <form class="Formulario" action="" method="POST">
     <div class="row mb-3">
-      <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Nome completo">
+      <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Nome completo" value="{{dicio['sessao']['nome_usuario']}}" readonly>
     </div>
     <div class="row mb-3">
-      <input type="email" class="form-control" id="formGroupExampleInput2" placeholder="E-mail">
+      <input type="email" class="form-control" id="formGroupExampleInput2" placeholder="E-mail" value="{{dicio['sessao']['email']}}">
     </div>
     <div class="row mb-3">
-      <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Número do cartão">
+      <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Número do cartão" required="required" name="num_cartao">
     </div>
     <div class="row justify-content-between mb-5">
-      <input type="text" class="form-control" id="dataExp" placeholder="Data de expiração">
-      <input type="text" class="form-control" id="CVV" placeholder="CVV">
+      <input type="text" class="form-control" id="dataExp" placeholder="Data de expiração" required="required" name="dataExp">
+      <input type="text" class="form-control" id="CVV" placeholder="CVV" required="required" name="cvvCartao">
     </div>
 
     <div class="row justify-content-between mb-4">
       <h2 class="valor-total">Valor Total: </h2>
-      <h2 class="valor-total">R$ 80.00</h2>
+      <h2 class="valor-total">{{ dicio['sistema']['valor_total'] }}</h2>
+    </div>
+
+    <div class="row justify-content-end">
+        <p>Quantidade dias {{ dicio['sistema']['qtd_dias'] }} x {{ dicio['sistema']['valor_diaria'] }} = {{dicio['sistema']['valor_total_sem_descontin']}}</p>
+        <p></p>
     </div>
 
     <div class="row">
