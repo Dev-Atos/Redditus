@@ -109,14 +109,19 @@ def perfil():
         ORDER BY A.ID_RESERVA DESC
         """
     dados = gato(query_executa, dicio['sessao']['id_usuario'],consulta=1).fetchall()
-
-    return render_template('/perfil.html', dicio=dicio, dados_perfil=info_extra,dados_reserva=dados)
+    return render_template('/perfil.html', dicio=dicio, dados_perfil=info_extra,dados_reserva=dados,zero=len(dados))
 
 #DELETAR CONTA
 @app.route('/deletar_conta/<id_usuario>')
 def deletarConta(id_usuario):
     logout()
-    gato("""DELETE CLIENTE WHERE ID_CLIENTE = ?""", id_usuario,consulta=0)
+    gato("""
+    DELETE RESERVA WHERE ID_CLIENTE = ?
+    """, id_usuario,consulta=0)
+    gato("""
+    DELETE CLIENTE WHERE ID_CLIENTE = ?
+    """, id_usuario,consulta=0)
+    db.session.commit()#COMMITA A AÇÃO
     return redirect('/')
 
 

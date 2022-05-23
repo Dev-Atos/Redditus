@@ -51,59 +51,62 @@
     <h6>Data de Nascimento: {{dados_perfil[2]}}</h6>
   </div>
   <div class="col ms-4">
-    <button type="submit" class="btn butao mt-3"><a href="/deletar_conta/{{dicio['sessao']['id_usuario']}}">Deletar Conta</a></button>
+    <button type="submit" class="btn butao mt-3"><a href="/deletar_conta/{{dicio['sessao']['id_usuario']}}">Deletar
+        Conta</a></button>
   </div>
 </div>
 
 <h4 class="text-center my-3">Reservas</h4>
+{% if zero != 0 %}
 <div class="reservas">
 
+  
+    {% for d in dados_reserva %}
+    <div class="row reserva cols-16">
+      <div class="col-2">
+        <img src="/static/img/carros/{{d[2]}}.png" class="card-img-top" alt="...">
+      </div>
+      <div class="col item">
+        <p class="titulo">Marca</p>
+        <p>{{d[1]}}</p>
+      </div>
+      <div class="col item">
+        <p class="titulo">Modelo</p>
+        <p>{{d[2].upper()}}</p>
+      </div>
+      <div class="col item">
+        <p class="titulo">Data da Retirada</p>
+        <p>{{d[3]}}</p>
+      </div>
+      <div class="col item">
+        <p class="titulo">Data da Devolução</p>
+        <p>{{d[4]}}</p>
+      </div>
+      <div class="col item">
+        <p class="titulo">Valor da Reserva</p>
+        <p>R$ {{d[5]}}</p>
+      </div>
+      <div class="col item">
+        <p class="titulo">Unidade</p>
+        <p>{{d[0]}}</p>
+      </div>
+      <div class="col item">
+        <p class="titulo">Status</p>
+        <p>{{d[6]}}</p>
+      </div>
+      {% if d[6] != 'CANCELADA' %}
+      <div class="col item">
+        <a class="cancelar" href="/cancelar_reserva/{{d[7]}}/{{d[8]}}">Cancelar Reserva</a>
+      </div>
+      {% endif %}
 
-  {% for d in dados_reserva %}
-  <div class="row reserva cols-16">
-    <div class="col-2">
-      <img src="/static/img/carros/{{d[2]}}.png" class="card-img-top" alt="...">
     </div>
-    <div class="col item">
-      <p class="titulo">Marca</p>
-      <p>{{d[1]}}</p>
-    </div>
-    <div class="col item">
-      <p class="titulo">Modelo</p>
-      <p>{{d[2].upper()}}</p>
-    </div>
-    <div class="col item">
-      <p class="titulo">Data da Retirada</p>
-      <p>{{d[3]}}</p>
-    </div>
-    <div class="col item">
-      <p class="titulo">Data da Devolução</p>
-      <p>{{d[4]}}</p>
-    </div>
-    <div class="col item">
-      <p class="titulo">Valor da Reserva</p>
-      <p>R$ {{d[5]}}</p>
-    </div>
-    <div class="col item">
-      <p class="titulo">Unidade</p>
-      <p>{{d[0]}}</p>
-    </div>
-    <div class="col item">
-      <p class="titulo">Status</p>
-      <p>{{d[6]}}</p>
-    </div>
-    {% if d[6] != 'CANCELADA' %}
-    <div class="col item">
-      <a class="cancelar" href="/cancelar_reserva/{{d[7]}}/{{d[8]}}">Cancelar Reserva</a>
-    </div>
-    {% endif %}
+    {% endfor %}
 
-  </div>
-{% endfor %}
 
 
 </div>
-
+{% endif %}
 {% endblock %}
 
 {% block scripts %}

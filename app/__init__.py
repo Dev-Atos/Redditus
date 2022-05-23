@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_login import LoginManager
-from flask_script import Manager #Migração banco de dados
-from flask_migrate import Migrate, MigrateCommand #migração Banco de dados
+from flask_script import Manager
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -12,10 +11,8 @@ app.config.from_object('config')
 app.secret_key='SUCODELARANJA'
 
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
 
 manager = Manager(app)
-manager.add_command('db', MigrateCommand)
 
 lm = LoginManager()
 lm.init_app(app)
